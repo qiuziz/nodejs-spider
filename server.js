@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 15:44:24
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-16 16:09:24
+ * @Last Modified time: 2017-05-16 16:31:33
  */
 
 var http = require('http'),
@@ -65,8 +65,8 @@ function start(url) {
 						});
 				});
 
-	
 }
+
 start(pageUrl);
 
 app.use(express.static('app'));
