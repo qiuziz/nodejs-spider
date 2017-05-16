@@ -2,13 +2,13 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-16 14:41:23
+ * @Last Modified time: 2017-05-16 16:09:12
  */
 
 	$(document).ready(function(){
 			var $document = $(document);
 			$(window).load(function(){
-					imgpush();
+					// imgpush();
 					var page = 0;
 					window.onscroll = function(){
 						var $this = $(this),
@@ -20,11 +20,10 @@
 							
 								$.each(data,function(index,value){
 										var box = $("<div>").addClass("box").appendTo($("#container"));
-										var content = $("<div>").addClass("content").appendTo(box);
 										// console.log("images/" + $(value).attr("images"));
-										$("<img>").attr("src", value.images).appendTo(content);
+										$("<img>").attr("src", value.images).appendTo(box);
 									});
-									imgpush();
+									// imgpush();
 									page++;
 							})
 						}
@@ -36,7 +35,6 @@
 		function loadMoreImg(page, cb) {
 			$.get('/jandan/images?page=' + page, function(data) {
 				cb(data);
-				console.log(data);
 			})
 		}
 
