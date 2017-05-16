@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 15:44:24
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-16 10:05:24
+ * @Last Modified time: 2017-05-16 14:59:26
  */
 
 var http = require('http'),
@@ -42,7 +42,7 @@ function start(url) {
 					});
 					async.mapSeries(imagesArray, function(url, callback) {
 							setTimeout(function() {
-								// download(url, callback);
+								download(url, callback);
 							},500)
 						}, function(error, result) {
 								if (err) return console.log(err);
@@ -60,7 +60,7 @@ function start(url) {
 									// 		})
 									// })
 								if (currentPage - 1 > 0) {
-									// start(pageUrl + '/page-' + (currentPage - 1));
+									start(pageUrl + '/page-' + (currentPage - 1));
 								}
 						});
 				});
