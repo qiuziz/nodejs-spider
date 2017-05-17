@@ -2,21 +2,17 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-17 16:18:45
+ * @Last Modified time: 2017-05-17 17:15:47
  */
 	$(document).ready(function(){
-			var $document = $(document);
 			$(window).load(function(){
 					imgpush();
+					init();
 					var page = 0, end;
-					var $document = $(document);
 					window.onscroll = function(){
-						var $this = $(this),
-						scrollTop = $this.scrollTop(),
-            scrollHeight = $document.height(),
-            windowHeight = $this.height();
-				　　if(scrollTop + windowHeight >= (scrollHeight / 2) && !end){
-									end = true;
+						
+				　　if(scroll() && !end){
+							end = true;// 防止多次请求
 							loadMoreImg(page, function(data) {
 							
 								$.each(data,function(index,value){
@@ -73,11 +69,18 @@
 
 		function scroll()
 		{
-			var box = $(".box");
-			var lastboxHeight = box.last().get(0).offsetTop + Math.floor(box.last().height()/2);
-			var documentHeight = $(document).width();
-			var scrollHeight = $(window).scrollTop();
-			return (lastboxHeight < scrollHeight + documentHeight) ? true : false;
+			// var box = $(".box");
+			// var lastboxHeight = box.last().get(0).offsetTop + Math.floor(box.last().height()/2);
+			// var documentHeight = $(document).width();
+			// var scrollHeight = $(window).scrollTop();
+			// return (lastboxHeight < scrollHeight + documentHeight) ? true : false;
+
+			var $this = $(this),
+			$document = $(document),
+			scrollTop = $this.scrollTop(),
+			scrollHeight = $document.height(),
+			windowHeight = $this.height();
+			return scrollTop + windowHeight >= (scrollHeight / 2)
 		}
 
 		function blowUpImg(event) {
@@ -96,11 +99,15 @@
 					};
 
           imgWrapCss = {width:dim.width,height:dim.height,transform: "translate3d("+dim.x+"px, "+dim.y+"px,0) scale(1)"};
-			var mark = $('.mark').css('display', 'block');
+			$('.mark').css('display', 'block');
 			$('.blow-up').css('display', 'block').css(imgWrapCss);
-			mark.bind('click', function() {
+			$('.blow-up').find("img").attr("src", imgSrc);
+		}
+
+		function init() {
+			$('.mark').bind('click', function() {
 				$('.mark').css('display', 'none');
 				$('.blow-up').css('display', 'none');
-			})
-			$('.blow-up').find("img").attr("src", imgSrc);
+			});
+
 		}

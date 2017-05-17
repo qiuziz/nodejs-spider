@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 15:44:24
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-17 10:53:54
+ * @Last Modified time: 2017-05-17 17:17:40
  */
 
 var http = require('http'),
@@ -16,7 +16,7 @@ var http = require('http'),
 		
 var app = express();
 
-var ep = new eventproxy();
+// var ep = new eventproxy();
 var pageUrl = 'http://jandan.net/ooxx';
 var imagesArray = [];
 var urls = [];
