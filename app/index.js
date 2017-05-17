@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-17 11:07:27
+ * @Last Modified time: 2017-05-17 16:18:45
  */
 	$(document).ready(function(){
 			var $document = $(document);
@@ -50,6 +50,9 @@
 			var boxArr = [];
 			box.each(function(index,value){
 					var boxHeight = box.eq(index).height();
+					$(value).unbind('click').bind('click', function(event) {
+						blowUpImg(event);
+					});
 					if(index < num)
 					{
 						boxArr[index] = boxHeight;
@@ -62,7 +65,7 @@
 							"position":"absolute",
 							"top":minboxHeight,
 							"left":box.eq(minboxIndex).position().left
-						});
+						})
 						boxArr[minboxIndex] +=  box.eq(index).height();
 					}
 			});
@@ -75,4 +78,29 @@
 			var documentHeight = $(document).width();
 			var scrollHeight = $(window).scrollTop();
 			return (lastboxHeight < scrollHeight + documentHeight) ? true : false;
+		}
+
+		function blowUpImg(event) {
+			var	maxSize = {width:$(window).width()*0.92,height:$(window).height()*0.92},
+					img = $(event.currentTarget).find('img'),
+					imgSrc = $(event.currentTarget).find('img').attr('src'),
+          scale,dim,imgWrapCss;
+
+          scale = Math.min(maxSize.width/$(img).width(),maxSize.height/$(img).height());
+          dim = 
+					{
+							width:$(img).width()*scale,
+							height:$(img).height()*scale,
+							x:($(window).width() - $(img).width()*scale)/2,
+							y:($(window).height() - $(img).height()*scale)/2
+					};
+
+          imgWrapCss = {width:dim.width,height:dim.height,transform: "translate3d("+dim.x+"px, "+dim.y+"px,0) scale(1)"};
+			var mark = $('.mark').css('display', 'block');
+			$('.blow-up').css('display', 'block').css(imgWrapCss);
+			mark.bind('click', function() {
+				$('.mark').css('display', 'none');
+				$('.blow-up').css('display', 'none');
+			})
+			$('.blow-up').find("img").attr("src", imgSrc);
 		}
