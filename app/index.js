@@ -2,15 +2,20 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-17 10:52:49
+ * @Last Modified time: 2017-05-17 11:07:27
  */
 	$(document).ready(function(){
 			var $document = $(document);
 			$(window).load(function(){
 					imgpush();
 					var page = 0, end;
+					var $document = $(document);
 					window.onscroll = function(){
-				　　if(scroll() && !end){
+						var $this = $(this),
+						scrollTop = $this.scrollTop(),
+            scrollHeight = $document.height(),
+            windowHeight = $this.height();
+				　　if(scrollTop + windowHeight >= (scrollHeight / 2) && !end){
 									end = true;
 							loadMoreImg(page, function(data) {
 							
