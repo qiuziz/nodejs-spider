@@ -2,30 +2,29 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-16 16:09:12
+ * @Last Modified time: 2017-05-17 10:52:49
  */
-
 	$(document).ready(function(){
 			var $document = $(document);
 			$(window).load(function(){
-					// imgpush();
-					var page = 0;
+					imgpush();
+					var page = 0, end;
 					window.onscroll = function(){
-						var $this = $(this),
-            scrollTop = $this.scrollTop(),
-            scrollHeight = $document.height(),
-            windowHeight = $this.height();
-				　　if(scrollTop + windowHeight >= scrollHeight){
+				　　if(scroll() && !end){
+									end = true;
 							loadMoreImg(page, function(data) {
 							
 								$.each(data,function(index,value){
 										var box = $("<div>").addClass("box").appendTo($("#container"));
+										var content = $("<div>").addClass("content").appendTo(box);
 										// console.log("images/" + $(value).attr("images"));
-										$("<img>").attr("src", value.images).appendTo(box);
+										$("<img>").attr("src", value.images).appendTo(content);
 									});
-									// imgpush();
 									page++;
+									imgpush();
+									end = false;
 							})
+							
 						}
 					};
 				
@@ -42,7 +41,7 @@
 		{
 			var box = $(".box");
 			var boxWidth = box.eq(0).width();
-			var num = Math.floor($(window).width()/boxWidth);
+			var num = Math.floor(($(window).width() - $(window).width() * 0.2)/boxWidth);
 			var boxArr = [];
 			box.each(function(index,value){
 					var boxHeight = box.eq(index).height();
@@ -54,7 +53,6 @@
 					{
 						var minboxHeight = Math.min.apply({},boxArr);
 						var minboxIndex = $.inArray(minboxHeight,boxArr);
-						// console.log(minboxIndex);
 						$(value).css({
 							"position":"absolute",
 							"top":minboxHeight,
@@ -72,4 +70,4 @@
 			var documentHeight = $(document).width();
 			var scrollHeight = $(window).scrollTop();
 			return (lastboxHeight < scrollHeight + documentHeight) ? true : false;
-		}2
+		}

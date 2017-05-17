@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 15:44:24
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-16 16:31:33
+ * @Last Modified time: 2017-05-17 10:53:54
  */
 
 var http = require('http'),
@@ -33,7 +33,6 @@ function start(url) {
 					var $ = cheerio.load(pres.text);
 					var curPageUrls = $('.current-comment-page');
 					currentPage = curPageUrls.eq(0).text().split('[')[1].split(']')[0];
-					console.log(currentPage);
 					var imagesLink = $('.view_img_link');
 					urls = imagesLink;
 					imagesLink.attr('href',function(index, value){

@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 19:50:58
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-16 10:32:31
+ * @Last Modified time: 2017-05-17 10:54:31
  */
 
 /*
@@ -24,7 +24,6 @@ router.get("/", (req, res) => {
 		var collection = db.collection('jandan');
 		
 		//查询数据库
-		console.log('page: ' + page);
 		collection.find().limit(10).skip(Number(page) * 10).toArray(function(err,doc){
 			if (err) {
 				console.log(err);
