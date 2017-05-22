@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-17 17:15:47
+ * @Last Modified time: 2017-05-19 17:34:03
  */
 	$(document).ready(function(){
 			$(window).load(function(){
@@ -20,6 +20,7 @@
 										var content = $("<div>").addClass("content").appendTo(box);
 										// console.log("images/" + $(value).attr("images"));
 										$("<img>").attr("src", value.images).appendTo(content);
+										$("<h3>").html(value._id).appendTo(content);
 									});
 									page++;
 									imgpush();
@@ -33,7 +34,8 @@
 		});
 
 		function loadMoreImg(page, cb) {
-			$.get('/jandan/images?page=' + page, function(data) {
+			var path = window.location.pathname.indexOf('photo') > -1 ? '/jandan/images?page=' : '/sheen/images?page=';
+			$.get(path + page, function(data) {
 				cb(data);
 			})
 		}

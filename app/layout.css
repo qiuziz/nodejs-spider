@@ -18,8 +18,22 @@
 }
 
 .content img {
-	width: 200px;
+	width: 400px;
 	height: auto;
+}
+
+.content h3 {
+	  font-family: 'Caveat', cursive;
+    line-height: 1;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 1em 0.5em;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #698b8d;
+    background: #fff;
 }
 
 #container {
