@@ -76,6 +76,10 @@
 		width: 80vw;
 	}
 
+	.box:focus {
+    outline: none;
+}
+
 	.content img {
 		width: 100%;
 	}
