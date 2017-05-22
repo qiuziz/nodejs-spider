@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-19 17:34:03
+ * @Last Modified time: 2017-05-22 15:04:16
  */
 	$(document).ready(function(){
 			$(window).load(function(){
@@ -20,7 +20,7 @@
 										var content = $("<div>").addClass("content").appendTo(box);
 										// console.log("images/" + $(value).attr("images"));
 										$("<img>").attr("src", value.images).appendTo(content);
-										$("<h3>").html(value._id).appendTo(content);
+										$("<h3>").html(value.disc || value._id).appendTo(content);
 									});
 									page++;
 									imgpush();
