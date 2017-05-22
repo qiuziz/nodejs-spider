@@ -9,12 +9,12 @@
 }
 
 .content {
-	padding: 10px;
-	margin: 10px;
 	border: 1px solid gray;
 	box-shadow: 0 0 8px gray;
 	border-radius: 5px;
 	cursor: pointer;
+	margin: 10px;
+	padding-bottom: 10px;
 }
 
 .content img {
@@ -63,9 +63,20 @@
 	overflow: hidden;
 	background: #fff;
 	cursor: default;
+	padding: 10px;
 }
 
 .blow-up img {
 	width: 100%;
 	cursor: default;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px)  {
+	.box {
+		width: 100%;
+	}
+
+	.content img {
+		width: 100%;
+	}
 }

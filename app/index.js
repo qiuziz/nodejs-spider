@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-22 15:04:16
+ * @Last Modified time: 2017-05-22 15:39:23
  */
 	$(document).ready(function(){
 			$(window).load(function(){
@@ -51,7 +51,7 @@
 					$(value).unbind('click').bind('click', function(event) {
 						blowUpImg(event);
 					});
-					if(index < num)
+					if(index < num || num < 1)
 					{
 						boxArr[index] = boxHeight;
 					}
