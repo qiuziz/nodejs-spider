@@ -6,6 +6,7 @@
 .box {
 	position: relative;
 	float: left;
+	cursor: none;
 }
 
 .content {
@@ -14,15 +15,18 @@
 	border-radius: 5px;
 	cursor: pointer;
 	margin: 10px;
+	cursor: none;
 	padding-bottom: 10px;
 }
 
 .content img {
 	width: 400px;
+	cursor: none;
 	height: auto;
 }
 
 .content h3 {
+		cursor: none;
 	  font-family: 'Caveat', cursive;
     line-height: 1;
     position: relative;
