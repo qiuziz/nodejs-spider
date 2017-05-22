@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-22 15:39:23
+ * @Last Modified time: 2017-05-22 16:08:35
  */
 	$(document).ready(function(){
 			$(window).load(function(){
@@ -86,7 +86,7 @@
 		}
 
 		function blowUpImg(event) {
-			var	maxSize = {width:$(window).width()*0.92,height:$(window).height()*0.92},
+			var	maxSize = {width:$(window).width()*0.8,height:$(window).height()*0.8},
 					img = $(event.currentTarget).find('img'),
 					imgSrc = $(event.currentTarget).find('img').attr('src'),
           scale,dim,imgWrapCss;
@@ -100,7 +100,7 @@
 							y:($(window).height() - $(img).height()*scale)/2
 					};
 
-          imgWrapCss = {width:dim.width,height:dim.height,transform: "translate3d("+dim.x+"px, "+dim.y+"px,0) scale(1)"};
+          imgWrapCss = {width:dim.width,height:dim.height,transform: "translate3d("+(dim.x - 20)+"px, "+dim.y+"px,0) scale(1)"};
 			$('.mark').css('display', 'block');
 			$('.blow-up').css('display', 'block').css(imgWrapCss);
 			$('.blow-up').find("img").attr("src", imgSrc);
