@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 15:44:24
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-23 10:14:40
+ * @Last Modified time: 2017-05-23 17:50:32
  */
 
 var http = require('http'),
@@ -26,6 +26,7 @@ jandan(pageUrl);
 
 // sheen()
 
+app.use('/', express.static('app'));
 app.use('/photo', express.static('app'));
 app.use('/photo/jandan', express.static('jandan'));
 app.use('/sheen', express.static('app'));
