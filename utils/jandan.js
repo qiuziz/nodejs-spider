@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-19 11:12:05
+ * @Last Modified time: 2017-05-23 16:40:41
  */
 
 var http = require('http'),
@@ -33,7 +33,6 @@ function jandan(url) {
 					urls = imagesLink;
 					imagesLink.attr('href',function(index, value){
 						imagesArray.push(value.split('//')[1]);
-						
 					});
 					async.mapSeries(imagesArray, function(url, callback) {
 							setTimeout(function() {

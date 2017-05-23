@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 15:44:24
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-19 17:35:22
+ * @Last Modified time: 2017-05-23 10:14:40
  */
 
 var http = require('http'),
@@ -35,6 +35,9 @@ app.use('/jandan/images', require('./utils/jandan-api.js'));
 app.use('/sheen/images', require('./utils/sheen-api.js'));
 app.get('/sheen', function(req, res) {
    res.sendfile('./app/sheen.html');
+});
+app.get('/', function(req, res) {
+   res.sendfile('./app/jandan.html');
 });
 app.get('/photo', function(req, res) {
    res.sendfile('./app/jandan.html');
