@@ -2,13 +2,13 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-22 10:29:20
+ * @Last Modified time: 2017-05-23 18:03:57
  */
 
 var	connect = require('./db.js'),
 		fs = require('fs');
 
-var path = process.cwd() + '/sheen';
+var path = process.cwd() + '/app/sheen';
 
 
 function sheen() {

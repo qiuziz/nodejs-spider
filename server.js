@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 15:44:24
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-23 17:50:32
+ * @Last Modified time: 2017-05-23 18:11:24
  */
 
 var http = require('http'),
@@ -26,20 +26,22 @@ jandan(pageUrl);
 
 // sheen()
 
-app.use('/', express.static('app'));
+app.use(express.static(__dirname + '/app'));
 app.use('/photo', express.static('app'));
-app.use('/photo/jandan', express.static('jandan'));
+// app.use('/photo/jandan', express.static('jandan'));
 app.use('/sheen', express.static('app'));
-app.use('/sheen/sheen', express.static('sheen'));
+// app.use('/sheen/sheen', express.static('sheen'));
 
 app.use('/jandan/images', require('./utils/jandan-api.js'));
 app.use('/sheen/images', require('./utils/sheen-api.js'));
-app.get('/sheen', function(req, res) {
-   res.sendfile('./app/sheen.html');
-});
+
 app.get('/', function(req, res) {
    res.sendfile('./app/jandan.html');
 });
+app.get('/sheen', function(req, res) {
+   res.sendfile('./app/sheen.html');
+});
+
 app.get('/photo', function(req, res) {
    res.sendfile('./app/jandan.html');
 });

@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-22 16:08:35
+ * @Last Modified time: 2017-05-23 18:01:35
  */
 	$(document).ready(function(){
 			$(window).load(function(){
@@ -34,7 +34,7 @@
 		});
 
 		function loadMoreImg(page, cb) {
-			var path = window.location.pathname.indexOf('photo') > -1 ? '/jandan/images?page=' : '/sheen/images?page=';
+			var path = window.location.pathname.indexOf('sheen') > -1 ? '/sheen/images?page=' : '/jandan/images?page=';
 			$.get(path + page, function(data) {
 				cb(data);
 			})

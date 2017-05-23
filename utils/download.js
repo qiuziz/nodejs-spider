@@ -2,14 +2,14 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 17:16:21
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-23 15:58:38
+ * @Last Modified time: 2017-05-23 18:06:17
  */
 
 var fs = require('fs'),
 		superagent = require("superagent"),
 		connect = require('./db.js');
 
-var dir = './jandan';
+var dir = './app/jandan';
 var curCount = 0;
 function download(url, callback) {
 	//延迟毫秒数
