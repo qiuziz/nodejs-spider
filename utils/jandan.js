@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-07 14:47:04
+ * @Last Modified time: 2017-12-07 17:24:16
  */
 
 var http = require('http'),
@@ -10,19 +10,30 @@ var http = require('http'),
     cheerio = require("cheerio"),
     async = require("async"),
 		download = require('./download.js'),
-		connect = require('./db.js');
-
-var phantom = require('phantom');
-		
+		connect = require('./db.js'),
+		sleep = require('sleep'),
+		phantom = require('phantom'),
+		USER_AGENTS = require('./userAgents'),
+		LEN = USER_AGENTS.length - 1;
 
 // var ep = new eventproxy();
 var imagesArray = [];
 var urls = [];
 var currentPage = '';
 
+// 产生m 到 n 之间的随机数
+function random(m, n) {
+	var i = n - m;
+	return Math.floor(Math.random() * i + m);
+}
+
 function jandan(url) {
+	sleep(10);
 	phantom.create().then(function(ph) {
 		ph.createPage().then(function(page) {
+			page.settings.userAgent = USER_AGENTS[random(0, LEN)];
+			page.settings.loadImages = false;
+			page.settings.resourceTimeout = 100000;
 			page.open(url).then(function(status) {
 				console.log(status);
 				page.property('content').then(function(content) {
