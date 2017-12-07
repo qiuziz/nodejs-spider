@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-07 17:47:29
+ * @Last Modified time: 2017-12-07 17:48:39
  */
 
 var http = require('http'),
@@ -31,7 +31,7 @@ function jandan(url) {
 	sleep.sleep(10);
 	phantom.create().then(function(ph) {
 		ph.createPage().then(function(page) {
-			console.log(page.settings);
+			if (!page.settings) return;
 			page.settings.userAgent = USER_AGENTS[random(0, LEN)];
 			page.settings.loadImages = false;
 			page.settings.resourceTimeout = 100000;
