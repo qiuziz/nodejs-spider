@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-11-24 21:31:29
+ * @Last Modified time: 2017-12-07 14:44:36
  */
 
 var http = require('http'),
@@ -16,7 +16,6 @@ var phantom = require('phantom');
 		
 
 // var ep = new eventproxy();
-var pageUrl = 'http://i.jandan.net/ooxx';
 var imagesArray = [];
 var urls = [];
 var currentPage = '';
@@ -56,9 +55,9 @@ function jandan(url) {
 									// 			db.close();
 									// 		})
 									// })
-								// if (currentPage - 1 > 0) {
-								// 	jandan(pageUrl + '/page-' + (currentPage - 1));
-								// }
+								if (currentPage - 1 > 0) {
+									jandan(pageUrl + '/page-' + (currentPage - 1));
+								}
 						});
 					page.close();
 					ph.exit();
@@ -108,6 +107,6 @@ function jandan(url) {
 
 }
 
-// jandan(pageUrl);
+jandan(pageUrl);
 
 module.exports = jandan;
