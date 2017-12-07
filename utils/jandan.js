@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-07 14:44:36
+ * @Last Modified time: 2017-12-07 14:47:04
  */
 
 var http = require('http'),
@@ -107,6 +107,6 @@ function jandan(url) {
 
 }
 
-jandan(pageUrl);
+// jandan(pageUrl);
 
 module.exports = jandan;
