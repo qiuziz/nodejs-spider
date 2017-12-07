@@ -2,12 +2,13 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 17:16:21
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-23 18:06:17
+ * @Last Modified time: 2017-12-07 10:59:17
  */
 
 var fs = require('fs'),
 		superagent = require("superagent"),
 		connect = require('./db.js');
+		saveToGoogleDrive = require('./googleapi');
 
 var dir = './app/jandan';
 var curCount = 0;
@@ -15,7 +16,7 @@ function download(url, callback) {
 	//延迟毫秒数
 	var delay = parseInt((Math.random() * 30000000) % 1000, 10);
 	curCount++;
-	// console.log('现在的并发数是', curCount, '，正在抓取的是', url, '，耗时' + delay + '毫秒');  
+	console.log('现在的并发数是', curCount, '，正在抓取的是', url, '，耗时' + delay + '毫秒');  
 	var arr = url.split('/');
 	var filename = arr[arr.length - 1];
 	if (fsExistsSync(dir + '/' + filename)) {
@@ -32,13 +33,14 @@ function download(url, callback) {
 		var req = superagent.get(url).on('error', function(err){
 			console.log(err);
 		}).pipe(writeStream).on('close', function() {
+			var url = saveToGoogleDrive(filename, dir + '/' + filename);
 			console.log(filename + '已下载');
 			connect((err, db) => {
 				//连接到表 jandan
 					var collection = db.collection('jandan');
 					//插入数据库
 					var id = filename.split('.')[0];
-					collection.save({ _id:id, images: dir + '/' + filename }, function(err, result) { 
+					collection.save({ _id:id, images: url }, function(err, result) { 
 						if(err)
 						{
 								console.log('Error:'+ err);
