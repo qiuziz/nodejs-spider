@@ -30,10 +30,12 @@ function random(m, n) {
 function jandan(url) {
 	sleep(10);
 	phantom.create().then(function(ph) {
+		console.log(ph)
 		ph.createPage().then(function(page) {
 			page.settings.userAgent = USER_AGENTS[random(0, LEN)];
 			page.settings.loadImages = false;
 			page.settings.resourceTimeout = 100000;
+			
 			page.open(url).then(function(status) {
 				console.log(status);
 				page.property('content').then(function(content) {
