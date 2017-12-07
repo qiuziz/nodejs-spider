@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-07 17:34:53
+ * @Last Modified time: 2017-12-07 17:47:29
  */
 
 var http = require('http'),
@@ -30,14 +30,15 @@ function random(m, n) {
 function jandan(url) {
 	sleep.sleep(10);
 	phantom.create().then(function(ph) {
-		console.log(ph)
 		ph.createPage().then(function(page) {
+			console.log(page.settings);
 			page.settings.userAgent = USER_AGENTS[random(0, LEN)];
 			page.settings.loadImages = false;
 			page.settings.resourceTimeout = 100000;
 			
 			page.open(url).then(function(status) {
 				console.log(status);
+				if (status !== 'success') return;
 				page.property('content').then(function(content) {
 					var $ = cheerio.load(content);
 					var curPageUrls = $('.current-comment-page');
