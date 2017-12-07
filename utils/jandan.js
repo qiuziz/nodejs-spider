@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-07 18:19:42
+ * @Last Modified time: 2017-12-07 18:21:05
  */
 
 var http = require('http'),
@@ -31,14 +31,15 @@ function jandan(url) {
 	sleep.sleep(1);
 	phantom.create(['--proxy=106.4.134.101:9000']).then(function(ph) {
 		ph.createPage().then(function(page) {
-			if (!page.settings) return;
 			page.settings.userAgent = USER_AGENTS[random(0, LEN)];
 			page.settings.loadImages = false;
 			page.settings.resourceTimeout = 100000;
 			
 			page.open(url).then(function(status) {
-				console.log(status);
-				if (status !== 'success') return;
+				if (status !== 'success') {
+					console.log(status);
+					return;
+				}
 				page.property('content').then(function(content) {
 					var $ = cheerio.load(content);
 					var curPageUrls = $('.current-comment-page');
