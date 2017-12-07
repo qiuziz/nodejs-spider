@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-07 17:24:16
+ * @Last Modified time: 2017-12-07 17:34:53
  */
 
 var http = require('http'),
@@ -28,7 +28,7 @@ function random(m, n) {
 }
 
 function jandan(url) {
-	sleep(10);
+	sleep.sleep(10);
 	phantom.create().then(function(ph) {
 		console.log(ph)
 		ph.createPage().then(function(page) {
