@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 17:43:10
+ * @Last Modified time: 2017-12-08 17:47:12
  */
 
 var http = require('http'),
@@ -26,6 +26,9 @@ function random(m, n) {
 	var i = n - m;
 	return Math.floor(Math.random() * i + m);
 }
+
+var pageUrl = 'http://jandan.net/ooxx';
+
 
 function jandan(url) {
 	console.log(url)
@@ -60,9 +63,9 @@ function jandan(url) {
 								sleep.sleep(10);
 								if (currentPage - 1 > 0) {
 									console.log(currentPage);
-									jandan(url + '/page-' + (currentPage - 1));
+									jandan(pageUrl + '/page-' + (currentPage - 1));
 								} else if (currentPage === 1) {
-									jandan(url);
+									jandan(pageUrl);
 								}
 						});
 					page.close();
