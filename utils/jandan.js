@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 16:16:43
+ * @Last Modified time: 2017-12-08 17:03:35
  */
 
 var http = require('http'),
@@ -63,12 +63,20 @@ function jandan(url) {
 									jandan(url);
 								}
 						});
-					ph.exit();
 					page.close();
+					ph.exit();
 				})
 			})
 		})
-	}).catch(err => {console.log(err)})
+		.catch(error => {
+			console.log(error);
+			page.close();
+		});
+	})
+	.catch(error => {
+		console.log(error);
+		ph.exit();
+	});
 	// superagent.get(url)
 	// 				.end(function(err,pres){
 	// 				// pres.text 里面存储着请求返回的 html 内容，将它传给 cheerio.load 之后
