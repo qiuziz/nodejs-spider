@@ -15,7 +15,7 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
 var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 // Load client secrets from a local file.
 function saveToGoogleDrive(name, readPath) {
-	fs.readFile('client_secret_node.json', function processClientSecrets(err, content) {
+	return fs.readFile('client_secret_node.json', function processClientSecrets(err, content) {
 	  if (err) {
 	    console.log('Error loading client secret file: ' + err);
 	    return;
@@ -41,7 +41,7 @@ function authorize(credentials, callback, name, readPath) {
   var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
   // Check if we have previously stored a token.
-  fs.readFile(TOKEN_PATH, function(err, token) {
+  return fs.readFile(TOKEN_PATH, function(err, token) {
     if (err) {
       return getNewToken(oauth2Client, callback, name, readPath);
     } else {
