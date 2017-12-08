@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 12:30:23
+ * @Last Modified time: 2017-12-08 12:40:13
  */
 
 var http = require('http'),
@@ -73,7 +73,7 @@ function jandan(url) {
 									// 		})
 									// })
 								if (currentPage - 1 > 0) {
-									jandan(pageUrl + '/page-' + (currentPage - 1));
+									jandan(url + '/page-' + (currentPage - 1));
 								}
 						});
 					ph.exit();
