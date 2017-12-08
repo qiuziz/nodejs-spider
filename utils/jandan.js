@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 17:13:37
+ * @Last Modified time: 2017-12-08 17:32:05
  */
 
 var http = require('http'),
@@ -52,14 +52,11 @@ function jandan(url) {
 					imagesLink.attr('href',function(index, value){
 						imagesArray.push(value.split('//')[1]);
 					});
-					console.log('imagesArray:', imagesArray.length);
 					async.mapSeries(imagesArray, function(url, callback) {
-							console.log('url:', url);
 							download(url, callback);
 						}, function(err, result) {
 								if (err) return console.log(err);
 								sleep.sleep(10);
-								console.log('mapSeriesmapSeries:', result);
 								if (currentPage - 1 > 0) {
 									console.log(currentPage);
 									jandan(url + '/page-' + (currentPage - 1));
