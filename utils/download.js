@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 17:16:21
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 16:30:30
+ * @Last Modified time: 2017-12-08 17:29:31
  */
 
 var fs = require('fs'),
@@ -32,8 +32,7 @@ function download(url, callback) {
 			}
 			db.close();
 			console.log('result:', result);
-			if (result) return;
-			if (fsExistsSync(dir + '/' + filename)) {
+			if (result || fsExistsSync(dir + '/' + filename)) {
 				curCount--;
 				callback(null, dir + '/' + filename);
 				console.log(filename + '已存在');
