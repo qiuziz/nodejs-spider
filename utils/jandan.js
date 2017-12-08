@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-07 18:22:51
+ * @Last Modified time: 2017-12-08 09:40:40
  */
 
 var http = require('http'),
@@ -29,7 +29,7 @@ function random(m, n) {
 
 function jandan(url) {
 	sleep.sleep(1);
-	phantom.create(['--proxy=106.4.134.101:9000']).then(function(ph) {
+	phantom.create().then(function(ph) {
 		ph.createPage().then(function(page) {
 			// page.settings.userAgent = USER_AGENTS[random(0, LEN)];
 			// page.settings.loadImages = false;
