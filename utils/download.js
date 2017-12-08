@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 17:16:21
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 16:21:39
+ * @Last Modified time: 2017-12-08 16:30:30
  */
 
 var fs = require('fs'),
@@ -30,8 +30,9 @@ function download(url, callback) {
 					console.log('Error:'+ err);
 					return;
 			}
+			db.close();
 			console.log('result:', result);
-			if (!result) return;
+			if (result) return;
 			if (fsExistsSync(dir + '/' + filename)) {
 				curCount--;
 				callback(null, dir + '/' + filename);
