@@ -22,7 +22,7 @@ function saveToGoogleDrive(name, readPath) {
 	  }
 	  // Authorize a client with the loaded credentials, then call the
 	  // Drive API.
-	  authorize(JSON.parse(content), listFiles, name, readPath);
+	  return authorize(JSON.parse(content), listFiles, name, readPath);
 	});
 }
 
@@ -43,7 +43,7 @@ function authorize(credentials, callback, name, readPath) {
   // Check if we have previously stored a token.
   fs.readFile(TOKEN_PATH, function(err, token) {
     if (err) {
-      getNewToken(oauth2Client, callback, name, readPath);
+      return getNewToken(oauth2Client, callback, name, readPath);
     } else {
       oauth2Client.credentials = JSON.parse(token);
       return callback(oauth2Client, name, readPath);
@@ -78,7 +78,7 @@ function getNewToken(oauth2Client, callback, name, readPath) {
       }
       oauth2Client.credentials = token;
       storeToken(token);
-      callback(oauth2Client, name, readPath);
+      return callback(oauth2Client, name, readPath);
     });
   });
 }
