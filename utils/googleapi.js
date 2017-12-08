@@ -3,6 +3,7 @@ var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 var urlshortener = google.urlshortener('v1');
+var connect = require('./db.js');
 
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/drive-nodejs-quickstart.json
@@ -14,15 +15,15 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 // Load client secrets from a local file.
-function saveToGoogleDrive(name, readPath, callback) {
-	return fs.readFile('client_secret_node.json', function processClientSecrets(err, content) {
+function saveToGoogleDrive(name, readPath) {
+	fs.readFile('client_secret_node.json', function processClientSecrets(err, content) {
 	  if (err) {
 	    console.log('Error loading client secret file: ' + err);
 	    return;
 	  }
 	  // Authorize a client with the loaded credentials, then call the
 	  // Drive API.
-	  return authorize(JSON.parse(content), listFiles, name, readPath, callback);
+	  authorize(JSON.parse(content), listFiles, name, readPath);
 	});
 }
 
@@ -33,7 +34,7 @@ function saveToGoogleDrive(name, readPath, callback) {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback, name, readPath, cb) {
+function authorize(credentials, callback, name, readPath) {
   var clientSecret = credentials.installed.client_secret;
   var clientId = credentials.installed.client_id;
   var redirectUrl = credentials.installed.redirect_uris[0];
@@ -43,10 +44,10 @@ function authorize(credentials, callback, name, readPath, cb) {
   // Check if we have previously stored a token.
   return fs.readFile(TOKEN_PATH, function(err, token) {
     if (err) {
-      getNewToken(oauth2Client, callback, name, readPath, cb);
+      getNewToken(oauth2Client, callback, name, readPath);
     } else {
       oauth2Client.credentials = JSON.parse(token);
-      callback(oauth2Client, name, readPath, cb);
+      callback(oauth2Client, name, readPath);
     }
   });
 }
@@ -59,7 +60,7 @@ function authorize(credentials, callback, name, readPath, cb) {
  * @param {getEventsCallback} callback The callback to call with the authorized
  *     client.
  */
-function getNewToken(oauth2Client, callback, name, readPath, cb) {
+function getNewToken(oauth2Client, callback, name, readPath) {
   var authUrl = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES
@@ -78,7 +79,7 @@ function getNewToken(oauth2Client, callback, name, readPath, cb) {
       }
       oauth2Client.credentials = token;
       storeToken(token);
-      callback(oauth2Client, name, readPath, cb);
+      callback(oauth2Client, name, readPath);
     });
   });
 }
@@ -105,7 +106,7 @@ function storeToken(token) {
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listFiles(auth, name, readPath, cb) {
+function listFiles(auth, name, readPath) {
   var service = google.drive('v3');
   service.files.create({
 		auth: auth,
@@ -137,7 +138,22 @@ function listFiles(auth, name, readPath, cb) {
 					console.log('Encountered error', err);
 				} else {
 					console.log('Long url is', response);
-					cb(response.id);
+					var url = response.id;
+					connect((err, db) => {
+						console.log('googleUrl' + url);
+						//连接到表 jandan
+						var collection = db.collection('jandan');
+						//插入数据库
+						var id = filename.split('.')[0];
+						collection.save({ _id:id, images: url }, function(err, result) { 
+							if(err)
+							{
+									console.log('Error:'+ err);
+									return;
+							}
+							db.close();
+						})
+					})
 				}
 			});
 	});

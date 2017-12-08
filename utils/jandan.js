@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 11:48:35
+ * @Last Modified time: 2017-12-08 12:30:23
  */
 
 var http = require('http'),
@@ -29,12 +29,14 @@ function random(m, n) {
 
 function jandan(url) {
 	sleep.sleep(1);
-	phantom.create(['--proxy=181.129.58.194:8080']).then(function(ph) {
+	console.log(url)
+	phantom.create().then(function(ph) {
+		
 		ph.createPage().then(function(page) {
-			// page.settings.userAgent = USER_AGENTS[random(0, LEN)];
+			// page.property('cookies', [{'__cfduid': 'd921e7c03d3a4d5e7f3d2e6c02cfbd9b21508117344'}, {_gat_gtag_UA_462921_3: '1'}, {_ga: 'GA1.2.426864425.1508117359'}, {_gid: 'GA1.2.1190099368.1512628749'}])
+			// page.property('userAgent', USER_AGENTS[random(0, LEN)]);
 			// page.settings.loadImages = false;
 			// page.settings.resourceTimeout = 100000;
-			
 			page.open(url).then(function(status) {
 				if (status !== 'success') {
 					console.log(status);
@@ -55,7 +57,7 @@ function jandan(url) {
 							setTimeout(function() {
 								download(url, callback);
 							},50000)
-						}, function(error, result) {
+						}, function(err, result) {
 								if (err) return console.log(err);
 									// connect((err, db) => {
 									// 	//连接到表 jandan
@@ -78,8 +80,8 @@ function jandan(url) {
 					page.close();
 				})
 			})
-		});
-	});
+		})
+	}).catch(err => {console.log(err)})
 	// superagent.get(url)
 	// 				.end(function(err,pres){
 	// 				// pres.text 里面存储着请求返回的 html 内容，将它传给 cheerio.load 之后
