@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 17:16:21
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-07 14:20:44
+ * @Last Modified time: 2017-12-08 10:52:06
  */
 
 var fs = require('fs'),
@@ -35,6 +35,7 @@ function download(url, callback) {
 		}).pipe(writeStream).on('close', function() {
 			var url = saveToGoogleDrive(filename, dir + '/' + filename);
 			console.log(filename + '已下载');
+			console.log('googleUrl' + url);
 			connect((err, db) => {
 				//连接到表 jandan
 					var collection = db.collection('jandan');
