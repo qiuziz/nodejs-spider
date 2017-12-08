@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 15:44:24
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-11-20 14:20:32
+ * @Last Modified time: 2017-12-08 23:27:41
  */
 
 var http = require('http'),
@@ -29,11 +29,11 @@ app.use('/photo', express.static('app'));
 app.use('/jandan/images', require('./utils/jandan-api.js'));
 
 app.get('/', function(req, res) {
-   res.sendfile('./app/jandan.html');
+   res.sendFile('./app/jandan.html');
 });
 
 app.get('/photo', function(req, res) {
-   res.sendfile('./app/jandan.html');
+   res.sendFile('./app/jandan.html');
 });
 http.createServer(app).listen(port);
 
