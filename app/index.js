@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 16:09:17
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-23 18:01:35
+ * @Last Modified time: 2017-12-08 15:42:57
  */
 	$(document).ready(function(){
 			$(window).load(function(){
@@ -14,17 +14,20 @@
 				　　if(scroll() && !end){
 							end = true;// 防止多次请求
 							loadMoreImg(page, function(data) {
-							
-								$.each(data,function(index,value){
-										var box = $("<div>").addClass("box").appendTo($("#container"));
-										var content = $("<div>").addClass("content").appendTo(box);
-										// console.log("images/" + $(value).attr("images"));
-										$("<img>").attr("src", value.images).appendTo(content);
-										$("<h3>").html(value.disc || value._id).appendTo(content);
-									});
-									page++;
-									imgpush();
+								if (data.length === 0) {
 									end = false;
+									return;
+								}
+								$.each(data, function(index,value) {
+									var box = $("<div>").addClass("box").appendTo($("#container"));
+									var content = $("<div>").addClass("content").appendTo(box);
+									// console.log("images/" + $(value).attr("images"));
+									$("<img>").attr("src", value.images).appendTo(content);
+									$("<h3>").html(value.disc || value._id).appendTo(content);
+								});
+								page++;
+								imgpush();
+								end = false;
 							})
 							
 						}
