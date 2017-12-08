@@ -107,7 +107,7 @@ function storeToken(token) {
  */
 function listFiles(auth, name, readPath) {
   var service = google.drive('v3');
-  service.files.create({
+  return service.files.create({
 		auth: auth,
 		fields:'id',
   	resource: {
