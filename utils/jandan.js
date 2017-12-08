@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 17:32:05
+ * @Last Modified time: 2017-12-08 17:43:10
  */
 
 var http = require('http'),
@@ -44,6 +44,7 @@ function jandan(url) {
 				page.property('content').then(function(content) {
 					var $ = cheerio.load(content);
 					var curPageUrls = $('.current-comment-page');
+					console.log(curPageUrls);
 					currentPage = curPageUrls.eq(0).text().split('[')[1].split(']')[0];
 					
 					var imagesLink = $('.view_img_link');
