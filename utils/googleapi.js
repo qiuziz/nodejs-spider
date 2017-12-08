@@ -14,7 +14,7 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 // Load client secrets from a local file.
-function saveToGoogleDrive(name, readPath) {
+function saveToGoogleDrive(name, readPath, callback) {
 	return fs.readFile('client_secret_node.json', function processClientSecrets(err, content) {
 	  if (err) {
 	    console.log('Error loading client secret file: ' + err);
@@ -22,7 +22,7 @@ function saveToGoogleDrive(name, readPath) {
 	  }
 	  // Authorize a client with the loaded credentials, then call the
 	  // Drive API.
-	  return authorize(JSON.parse(content), listFiles, name, readPath);
+	  return authorize(JSON.parse(content), listFiles, name, readPath, callback);
 	});
 }
 
@@ -33,7 +33,7 @@ function saveToGoogleDrive(name, readPath) {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-function authorize(credentials, callback, name, readPath) {
+function authorize(credentials, callback, name, readPath, cb) {
   var clientSecret = credentials.installed.client_secret;
   var clientId = credentials.installed.client_id;
   var redirectUrl = credentials.installed.redirect_uris[0];
@@ -43,10 +43,10 @@ function authorize(credentials, callback, name, readPath) {
   // Check if we have previously stored a token.
   return fs.readFile(TOKEN_PATH, function(err, token) {
     if (err) {
-      return getNewToken(oauth2Client, callback, name, readPath);
+      getNewToken(oauth2Client, callback, name, readPath, cb);
     } else {
       oauth2Client.credentials = JSON.parse(token);
-      return callback(oauth2Client, name, readPath);
+      callback(oauth2Client, name, readPath, cb);
     }
   });
 }
@@ -59,7 +59,7 @@ function authorize(credentials, callback, name, readPath) {
  * @param {getEventsCallback} callback The callback to call with the authorized
  *     client.
  */
-function getNewToken(oauth2Client, callback, name, readPath) {
+function getNewToken(oauth2Client, callback, name, readPath, cb) {
   var authUrl = oauth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES
@@ -78,7 +78,7 @@ function getNewToken(oauth2Client, callback, name, readPath) {
       }
       oauth2Client.credentials = token;
       storeToken(token);
-      return callback(oauth2Client, name, readPath);
+      callback(oauth2Client, name, readPath, cb);
     });
   });
 }
@@ -105,9 +105,9 @@ function storeToken(token) {
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listFiles(auth, name, readPath) {
+function listFiles(auth, name, readPath, cb) {
   var service = google.drive('v3');
-  return service.files.create({
+  service.files.create({
 		auth: auth,
 		fields:'id',
   	resource: {
@@ -136,8 +136,8 @@ function listFiles(auth, name, readPath) {
 				if (err) {
 					console.log('Encountered error', err);
 				} else {
-					return response.id;
 					console.log('Long url is', response);
+					cb(response.id);
 				}
 			});
 	});

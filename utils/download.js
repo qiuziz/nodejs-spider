@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 17:16:21
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 11:15:28
+ * @Last Modified time: 2017-12-08 11:28:07
  */
 
 var fs = require('fs'),
@@ -33,23 +33,27 @@ function download(url, callback) {
 		var req = superagent.get(url).on('error', function(err){
 			console.log(err);
 		}).pipe(writeStream).on('close', function() {
-			var url = saveToGoogleDrive(filename, dir + '/' + filename);
-			console.log(filename + '已下载');
-			console.log('googleUrl' + url);
-			connect((err, db) => {
-				//连接到表 jandan
-					var collection = db.collection('jandan');
-					//插入数据库
-					var id = filename.split('.')[0];
-					collection.save({ _id:id, images: url }, function(err, result) { 
-						if(err)
-						{
-								console.log('Error:'+ err);
-								return;
-						}
-						db.close();
+			saveToGoogleDrive(filename, dir + '/' + filename,
+				function(url) {
+					connect((err, db) => {
+						console.log('googleUrl' + url);
+						//连接到表 jandan
+						var collection = db.collection('jandan');
+						//插入数据库
+						var id = filename.split('.')[0];
+						collection.save({ _id:id, images: url }, function(err, result) { 
+							if(err)
+							{
+									console.log('Error:'+ err);
+									return;
+							}
+							db.close();
+						})
 					})
-			})
+				}
+			);
+			console.log(filename + '已下载');
+			
 			curCount--;
 			callback(null, dir + '/' + filename);
 		});
