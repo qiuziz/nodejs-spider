@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 12:40:13
+ * @Last Modified time: 2017-12-08 16:16:43
  */
 
 var http = require('http'),
@@ -28,7 +28,6 @@ function random(m, n) {
 }
 
 function jandan(url) {
-	sleep.sleep(1);
 	console.log(url)
 	phantom.create().then(function(ph) {
 		
@@ -54,26 +53,14 @@ function jandan(url) {
 						imagesArray.push(value.split('//')[1]);
 					});
 					async.mapSeries(imagesArray, function(url, callback) {
-							setTimeout(function() {
-								download(url, callback);
-							},50000)
+							download(url, callback);
 						}, function(err, result) {
 								if (err) return console.log(err);
-									// connect((err, db) => {
-									// 	//连接到表 jandan
-									// 		var collection = db.collection('jandan');
-									// 		//插入数据库
-									// 		collection.save({_id: 1, images: result }, function(err, result) { 
-									// 			if(err)
-									// 			{
-									// 					console.log('Error:'+ err);
-									// 					return;
-									// 			}
-									// 			db.close();
-									// 		})
-									// })
+								sleep.sleep(10);
 								if (currentPage - 1 > 0) {
 									jandan(url + '/page-' + (currentPage - 1));
+								} else if (currentPage === 1) {
+									jandan(url);
 								}
 						});
 					ph.exit();
