@@ -151,7 +151,11 @@ function listFiles(auth, name, readPath) {
 									console.log('Error:'+ err);
 									return;
 							}
-							db.close();
+							fs.unlink(readPath, function(err) {
+								if (err) throw err;
+								console.log('文件删除成功');
+								db.close();
+							});
 						})
 					})
 				}

@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 17:16:21
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 12:34:53
+ * @Last Modified time: 2017-12-08 15:19:58
  */
 
 var fs = require('fs'),
@@ -16,7 +16,7 @@ function download(url, callback) {
 	//延迟毫秒数
 	var delay = parseInt((Math.random() * 30000000) % 1000, 10);
 	curCount++;
-	console.log('现在的并发数是', curCount, '，正在抓取的是', url, '，耗时' + delay + '毫秒');  
+	console.log(new Date() + '现在的并发数是', curCount, '，正在抓取的是', url, '，耗时' + delay + '毫秒');  
 	var arr = url.split('/');
 	var filename = arr[arr.length - 1];
 	if (fsExistsSync(dir + '/' + filename)) {
