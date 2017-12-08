@@ -144,7 +144,7 @@ function listFiles(auth, name, readPath) {
 						//连接到表 jandan
 						var collection = db.collection('jandan');
 						//插入数据库
-						var id = filename.split('.')[0];
+						var id = name.split('.')[0];
 						collection.save({ _id:id, images: url }, function(err, result) { 
 							if(err)
 							{
