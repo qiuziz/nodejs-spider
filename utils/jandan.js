@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 17:49:37
+ * @Last Modified time: 2017-12-11 14:08:31
  */
 
 var http = require('http'),
@@ -36,12 +36,13 @@ function jandan(url) {
 		
 		ph.createPage().then(function(page) {
 			// page.property('cookies', [{'__cfduid': 'd921e7c03d3a4d5e7f3d2e6c02cfbd9b21508117344'}, {_gat_gtag_UA_462921_3: '1'}, {_ga: 'GA1.2.426864425.1508117359'}, {_gid: 'GA1.2.1190099368.1512628749'}])
-			// page.property('userAgent', USER_AGENTS[random(0, LEN)]);
+			page.property('userAgent', USER_AGENTS[random(0, LEN)]);
 			// page.settings.loadImages = false;
 			// page.settings.resourceTimeout = 100000;
 			page.open(url).then(function(status) {
 				if (status !== 'success') {
 					console.log(status);
+					jandan(url);
 					return;
 				}
 				page.property('content').then(function(content) {
