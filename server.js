@@ -1,8 +1,8 @@
 /*
  * @Author: qiuziz
  * @Date: 2017-05-11 15:44:24
- * @Last Modified by: qiuziz
- * @Last Modified time: 2017-12-08 23:37:33
+ * @Last Modified by: qiuz <https://github.com/qiuziz>
+ * @Last Modified time: 2018-07-26 16:18:22
  */
 
 var http = require('http'),
@@ -25,7 +25,8 @@ var port = process.env.PORT || 4000;
 jandan(pageUrl);
 
 app.use(express.static(__dirname + '/app'));
-app.use('/photo', express.static('app'));
+app.use('/app', express.static('app'));
+// app.use('/photo/jandan', express.static('jandan'));
 app.use('/jandan/images', require('./utils/jandan-api.js'));
 
 app.get('/', function(req, res) {
