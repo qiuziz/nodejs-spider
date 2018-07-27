@@ -36,7 +36,9 @@ function getXici() {
                     proxys.push(proxy);
                 }
             }
-        }
+        } else {
+					console.log(error);
+				}
         check();
     });
 }
