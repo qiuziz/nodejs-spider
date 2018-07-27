@@ -10,7 +10,7 @@ var useful = [];  //保存检查过有效性的代理
  * 获取www.xicidaili.com提供的免费代理
  */
 function getXici() {
-    url = "http://www.xicidaili.com/nn";  // 国内高匿代理
+    url = "https://free-proxy-list.net/";  // 国内高匿代理
 
     request ({
         url: url,
@@ -20,21 +20,17 @@ function getXici() {
         } //给个浏览器头，不然网站拒绝访问
     }, function(error, response, body) {
         if(!error) {
+
             var $ = cheerio.load(body);
-            var trs = $("#ip_list tr");
+            var trs = $(".table > tbody > tr");
             for(var i=1;i<trs.length;i++) {
                 var proxy = {};
-                tr = trs.eq(i);
-                tds = tr.children("td");
-                proxy['ip'] = tds.eq(1).text();
-                proxy['port'] = tds.eq(2).text();
-                var speed = tds.eq(6).children("div").attr("title");
-                speed = speed.substring(0, speed.length-1);
-                var connectTime = tds.eq(7).children("div").attr("title");
-                connectTime = connectTime.substring(0, connectTime.length-1);
-                if(speed <= 5 && connectTime <= 1) { //用速度和连接时间筛选一轮
-                    proxys.push(proxy);
-                }
+								tr = trs.eq(i);
+								tds = tr.children("td");
+                proxy['ip'] = tds.eq(0).text();
+								proxy['port'] = tds.eq(1).text();
+								console.log(proxy);
+								proxys.push(proxy);
             }
         } else {
 					console.log(error);
@@ -67,7 +63,7 @@ function check() {
                     console.log(response.request['proxy']['href'], "failed!");
                 }
             } else {
-                //console.log("One proxy failed!");
+                console.log("One proxy failed!");
             }
             flag--;
             if (flag == 0) {
