@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-11 17:16:21
  * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-07-27 14:10:00
+ * @Last Modified time: 2018-07-27 15:10:11
  */
 
 var fs = require('fs'),
@@ -16,6 +16,8 @@ var fs = require('fs'),
 require('superagent-proxy')(superagent);
 var dir = './app/jandan';
 var curCount = 0;
+
+getProxy();
 
 var proxyNum = 0;
 
