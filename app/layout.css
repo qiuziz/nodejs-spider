@@ -1,8 +1,11 @@
+* {
+	padding: 0px;
+	margin:0px;
+}
+
 .box {
-	// position: relative;
-  // float: left;
-  width: 300px;
-  position: absolute;
+	position: relative;
+	float: left;
 }
 
 .content {
@@ -11,14 +14,15 @@
 	border-radius: 5px;
 	cursor: pointer;
 	margin: 10px;
-  padding-bottom: 10px;
+	padding-bottom: 10px;
+}
 
-  img {
-    width: 100%;
-    height: auto;
-  }
+.content img {
+	width: 400px;
+	height: auto;
+}
 
-  h3 {
+.content h3 {
 	  font-family: 'Caveat', cursive;
     line-height: 1;
     position: relative;
@@ -30,10 +34,22 @@
     text-overflow: ellipsis;
     color: #698b8d;
     background: #fff;
-  }
 }
 
+#container {
+	width: 80%;
+	margin: 0 auto;
+}
 
+.mark {
+	position: fixed;
+	display: none;
+	z-index: 10;
+	opacity: 0.9;
+	background: #000;
+	width: 100vw;
+	height: 100vh;
+}
 
 .blow-up {
 	width: 100%;
@@ -47,12 +63,12 @@
 	overflow: hidden;
 	background: #fff;
 	cursor: default;
-  padding: 10px;
+	padding: 10px;
+}
 
-  img {
-    width: 100%;
-    cursor: default;
-  }
+.blow-up img {
+	width: 100%;
+	cursor: default;
 }
 
 @media only screen and (min-width: 320px) and (max-width: 767px)  {
@@ -62,17 +78,16 @@
 	}
 
 
-	.content {
-    cursor: none;
-
-    img {
-      width: 100%;
-      cursor: none;
-    }
-
-    h3 {
-      cursor: none;
-    }
+	.content img {
+		width: 100%;
+		cursor: none;
 	}
 
+	.content {
+		cursor: none;
+	}
+
+	.content h3 {
+		cursor: none;
+	}
 }
