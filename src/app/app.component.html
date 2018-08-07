@@ -1,7 +1,7 @@
 <div class="mark"></div>
 <div class="content blow-up"><img></div>
 <div id="container">
-  <app-look-image #tref *ngFor="let image of images; index as i" [index]="i" [src]="image.src" (fromChild)="fromChildFunc($event, index)"></app-look-image>
+  <app-look-image #tref *ngFor="let image of images; index as i" [index]="i" [src]="'http://' + image.images" (fromChild)="fromChildFunc($event, index)"></app-look-image>
 
 </div>
 

@@ -1,10 +1,12 @@
 import { Component, OnInit, ElementRef, ViewChildren, Renderer2, AfterViewInit, QueryList, AfterViewChecked } from '@angular/core';
 import { LookImageComponent } from './look-image/look-image.component';
 import { ImageService } from './image.service';
+import { fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 interface Image {
   id: number;
-  src: string;
+  images: string;
 }
 
 @Component({
@@ -17,6 +19,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   images: Image[];
   boxHeight: number;
   boxArr: any[] = [];
+  page = 1;
 
   @ViewChildren(LookImageComponent) tref: QueryList<LookImageComponent>;
   boxList: any[] = [];
@@ -31,12 +34,27 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
     //     this.adjustBoxHeight(box, index);
     //   });
     // }, 500);
-    console.log(this.tref);
+
+    fromEvent(window, 'scroll').pipe(debounceTime(500))
+    .subscribe(() => {
+      if (this.getClient().height + this.getScrollTop() >= this.boxList[this.boxList.length - 1].offsetTop) {
+        this.imageService.getImages(this.page)
+        .subscribe(images => {
+          this.page++;
+          this.images = [... this.images, ...images];
+        });
+    }
+    });
   }
 
   getImages(): void {
     this.imageService.getImages()
-      .subscribe(images => this.images = images);
+      .subscribe(images => {
+        this.page++;
+        this.images = images;
+      });
+    console.log(this.images);
+
   }
 
   ngAfterViewInit() {
