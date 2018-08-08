@@ -1,5 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChildren, Renderer2, AfterViewInit, QueryList, AfterViewChecked } from '@angular/core';
-import { LookImageComponent } from './look-image/look-image.component';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ImageService } from './image.service';
 import { fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -14,18 +13,15 @@ interface Image {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
-  title = 'app';
+export class AppComponent implements OnInit {
   images: Image[];
   boxHeight: number;
   boxArr: any[] = [];
   page = 1;
   pending = false;
-
-  @ViewChildren(LookImageComponent) tref: QueryList<LookImageComponent>;
   boxList: any[] = [];
 
-  constructor(public ele: ElementRef, private renderer2: Renderer2, private imageService: ImageService) { }
+  constructor(public ele: ElementRef, private imageService: ImageService) { }
 
   ngOnInit() {
     this.getImages();
@@ -65,32 +61,25 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   }
 
-  ngAfterViewInit() {
-    console.log(this.boxArr);
-  }
-
-  ngAfterViewChecked() {
-    console.log('AfterViewChecked');
-  }
-
   fromChildFunc(event) {
     this.boxList.push(event.box);
     this.adjustBoxHeight(this.boxList.length - 1);
   }
 
   adjustBoxHeight(index) {
-      const gap = 10;
-      // 1- 确定列数  = 页面的宽度 / 图片的宽度
-      const pageWidth = this.getClient().width;
-      const itemWidth: number = this.boxList[index].offsetWidth;
-      const columns = Math.floor(pageWidth / (itemWidth + gap));
-      const initLeft = (pageWidth - (columns * (itemWidth + gap))) / 2;
+      const gap = 10; // 间隔距离px
+
+      // 1.确定列数  = 页面的宽度 / 图片的宽度
+      const pageWidth = this.getClient().width
+      , itemWidth: number = this.boxList[index].offsetWidth
+      , columns = Math.floor(pageWidth / (itemWidth + gap))
+      , initLeft = (pageWidth - (columns * (itemWidth + gap))) / 2; // 使页面居中，算出剩余空间的一半作为初始的left
+
       if (index < columns) {
-          // 2- 确定第一行
+          // 2. 确定第一行
           this.boxList[index].style.top = 10 + 'px';
           this.boxList[index].style.left = (itemWidth + gap) * index + initLeft + 'px';
           this.boxArr.push(this.boxList[index].offsetHeight);
-
       } else {
           // 其他行
           // 3- 找到数组中最小高度  和 它的索引

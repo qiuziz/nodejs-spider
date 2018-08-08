@@ -1,11 +1,11 @@
-import { Component, OnInit, AfterContentInit, Input, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-look-image',
   templateUrl: './look-image.component.html',
   styleUrls: ['./look-image.component.less']
 })
-export class LookImageComponent implements OnInit, AfterContentInit {
+export class LookImageComponent implements OnInit {
   @Input() src: string;
   @Input() index: number;
   @Output() fromChild = new EventEmitter();
@@ -16,10 +16,6 @@ export class LookImageComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.box = this.ele.nativeElement.querySelector('.box');
-  }
-
-  ngAfterContentInit() {
-
   }
 
   lookImg(): void {
