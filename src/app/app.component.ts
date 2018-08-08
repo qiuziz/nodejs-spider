@@ -28,23 +28,27 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   ngOnInit() {
     this.getImages();
-    // setTimeout(() => {
-    //   const boxs = this.ele.nativeElement.querySelectorAll('.box');
-    //   boxs.forEach((box, index) => {
-    //     this.adjustBoxHeight(box, index);
-    //   });
-    // }, 500);
 
     fromEvent(window, 'scroll').pipe(debounceTime(500))
-    .subscribe(() => {
-      if (this.getClient().height + this.getScrollTop() >= this.boxList[this.boxList.length - 1].offsetTop) {
-        this.imageService.getImages(this.page)
-        .subscribe(images => {
-          this.page++;
-          this.images = [... this.images, ...images];
+      .subscribe(() => {
+        if (this.getClient().height + this.getScrollTop() >= this.boxList[this.boxList.length - 1].offsetTop) {
+          this.imageService.getImages(this.page)
+          .subscribe(images => {
+            this.page++;
+            this.images = [... this.images, ...images];
+          });
+        }
+      });
+
+    fromEvent(window, 'resize').pipe(debounceTime(500))
+      .subscribe(() => {
+        this.boxArr = [];
+        this.boxHeight = 0;
+        const boxs = this.ele.nativeElement.querySelectorAll('.box');
+        boxs.forEach((box, index) => {
+          this.adjustBoxHeight(index);
         });
-    }
-    });
+      });
   }
 
   getImages(): void {
@@ -76,10 +80,11 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
       const pageWidth = this.getClient().width;
       const itemWidth: number = this.boxList[index].offsetWidth;
       const columns = Math.floor(pageWidth / (itemWidth + gap));
+      const initLeft = (pageWidth - (columns * (itemWidth + gap))) / 2;
       if (index < columns) {
           // 2- 确定第一行
-          this.boxList[index].style.top = 0;
-          this.boxList[index].style.left = (itemWidth + gap) * index + 'px';
+          this.boxList[index].style.top = 10 + 'px';
+          this.boxList[index].style.left = (itemWidth + gap) * index + initLeft + 'px';
           this.boxArr.push(this.boxList[index].offsetHeight);
 
       } else {

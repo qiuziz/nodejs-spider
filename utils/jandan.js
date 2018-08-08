@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-08-07 16:58:37
+ * @Last Modified time: 2018-08-08 09:58:35
  */
 
 var http = require('http'),
@@ -27,7 +27,7 @@ function random(m, n) {
 	return Math.floor(Math.random() * i + m);
 }
 
-var pageUrl = 'http://jandan.net/ooxx';
+var pageUrl = 'https://jandan.net/ooxx';
 
 
 function jandan(url) {
@@ -57,7 +57,6 @@ function jandan(url) {
 						imagesArray.push(value.split('//')[1]);
 					});
 					async.mapSeries(imagesArray, function(url, callback) {
-              sleep.sleep(10);
 							download(url, callback);
 						}, function(err, result) {
 								if (err) return console.log(err);
@@ -70,7 +69,7 @@ function jandan(url) {
 								}
 						});
 					page.close();
-					// ph.exit();
+					ph.exit();
 				})
 			})
 		})
