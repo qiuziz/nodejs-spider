@@ -1,8 +1,8 @@
 /*
  * @Author: qiuziz
  * @Date: 2017-05-15 19:50:58
- * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-17 10:54:31
+ * @Last Modified by: qiuz <https://github.com/qiuziz>
+ * @Last Modified time: 2018-08-08 15:24:36
  */
 
 /*
@@ -12,17 +12,16 @@
  * @Last Modified time: 2017-05-10 11:05:29
  */
 
-var express = require("express"),
+const express = require("express"),
 		router = express(),
 		connect = require("./db.js");
 
 router.get("/", (req, res) => {
-	var id = req.query.id || 1;
-	var page = req.query.page || 0;
+	const page = req.query.page || 0;
   connect((err, db) => {
 		//连接到表 jandan
-		var collection = db.collection('jandan');
-		
+		const collection = db.collection('jandan');
+
 		//查询数据库
 		collection.find().limit(10).skip(Number(page) * 10).toArray(function(err,doc){
 			if (err) {
