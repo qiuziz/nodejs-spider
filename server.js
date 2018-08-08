@@ -12,7 +12,6 @@ const app = express();
 const pageUrl = 'https://jandan.net/ooxx';
 const port = process.env.PORT || 8080;
 
-
 jandan(pageUrl);
 
 app.use('/jandan/images', require('./utils/jandan-api.js'));

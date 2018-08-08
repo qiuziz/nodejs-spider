@@ -12,7 +12,7 @@ interface Image {
   providedIn: 'root'
 })
 export class ImageService {
-  private imagesUrl = '/jandan/images';  // URL to web api
+  private imagesUrl = '/jandan/images/';  // URL to web api
   constructor(private http: HttpClient) { }
 
   getImages(page: number = 1): Observable<Image[]> {
