@@ -20,6 +20,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
   boxHeight: number;
   boxArr: any[] = [];
   page = 1;
+  pending = false;
 
   @ViewChildren(LookImageComponent) tref: QueryList<LookImageComponent>;
   boxList: any[] = [];
@@ -31,11 +32,14 @@ export class AppComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
     fromEvent(window, 'scroll').pipe(debounceTime(500))
       .subscribe(() => {
+        if (this.pending) { return; }
         if (this.getClient().height + this.getScrollTop() >= this.boxList[this.boxList.length - 1].offsetTop) {
+          this.pending = true;
           this.imageService.getImages(this.page)
           .subscribe(images => {
+            this.pending = false;
             this.page++;
-            this.images = [... this.images, ...images];
+            this.images = [...this.images, ...images];
           });
         }
       });
