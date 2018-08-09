@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
   constructor(
     public ele: ElementRef,
     private imageService: ImageService,
-    private loadingService: LoadingService
+    public loadingService: LoadingService
   ) { }
 
   ngOnInit() {
