@@ -91,32 +91,18 @@
 }
 
 @media only screen and (min-width: 320px) and (max-width: 767px)  {
-	// .box {
-	// 	width: 80vw;
-	// 	cursor: none;
-	// }
-
-
-	// .content {
-  //   cursor: none;
-
-  //   img {
-  //     width: 100%;
-  //     cursor: none;
-  //   }
-
-  //   h3 {
-  //     cursor: none;
-  //   }
-	// }
+	.img-wrap {
+    img {
+      width: 100%;
+      height: auto !important;
+    }
+  }
 
 }
 
 .img-wrap {
   position: fixed;
 	z-index: 10;
-	width: 100vw;
-  height: 100vh;
   top: 0;
   left: 0;
   right: 0;
@@ -127,7 +113,7 @@
   cursor: zoom-out;
 
   .mark {
-    opacity: 0.8;
+    opacity: 1;
     position: fixed;
     background: #000;
     width: 100vw;
@@ -138,8 +124,7 @@
   img {
     position: fixed;
     z-index: 100;
-    width: 100%;
-    border-radius: 5px;
+    height: 100%;
   }
 }
 

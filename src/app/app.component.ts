@@ -119,6 +119,7 @@ export class AppComponent implements OnInit {
       if (index === this.images.length - 1) {
         if (this.page <= 2) { this.loading = false; }
         this.loadingService.isLoading = false;
+        document.body.style.position = 'static';
       }
   }
 
