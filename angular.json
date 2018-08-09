@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ng-zorro-antd/src/ng-zorro-antd.css",
               "src/styles.css"
             ],
             "scripts": []

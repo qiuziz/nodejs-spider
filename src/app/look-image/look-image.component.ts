@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@angular/core';
+import { LoadingService } from '../loading.service';
 
 @Component({
   selector: 'app-look-image',
@@ -12,7 +13,7 @@ export class LookImageComponent implements OnInit {
   showImg = false;
   box: any;
 
-  constructor(public ele: ElementRef) { }
+  constructor(public ele: ElementRef, private loadingService: LoadingService) { }
 
   ngOnInit() {
     this.box = this.ele.nativeElement.querySelector('.box');
@@ -22,6 +23,7 @@ export class LookImageComponent implements OnInit {
     this.showImg = !this.showImg;
 
     document.body.style.overflow  = this.showImg ? 'hidden' : 'auto';
+    document.body.style.position  = this.showImg ? 'fixed' : 'static';
   }
 
 

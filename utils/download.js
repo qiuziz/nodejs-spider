@@ -26,7 +26,7 @@ function download(url, callback) {
         db.close();
 				return;
 			} else {
-        collection.save({ _id:id, images: url }, function(err, result) {
+        collection.save({ _id:id, src: url }, function(err, result) {
           if(err)
           {
               console.log('Error:'+ err);

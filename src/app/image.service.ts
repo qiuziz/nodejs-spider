@@ -5,7 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 interface Image {
   id: number;
-  images: string;
+  src: string;
 }
 
 @Injectable({

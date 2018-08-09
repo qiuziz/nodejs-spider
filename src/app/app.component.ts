@@ -2,11 +2,27 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ImageService } from './image.service';
 import { fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { LoadingService } from './loading.service';
 
 interface Image {
   id: number;
-  images: string;
+  src: string;
 }
+
+const IMAGES = [
+  { id: 1, src: '../assets/images/1.jpg' },
+  { id: 2, src: '../assets/images/2.jpg' },
+  { id: 3, src: '../assets/images/3.jpg' },
+  { id: 4, src: '../assets/images/4.jpg' },
+  { id: 5, src: '../assets/images/5.jpg' },
+  { id: 6, src: '../assets/images/6.jpg' },
+  { id: 1, src: '../assets/images/1.jpg' },
+  { id: 2, src: '../assets/images/2.jpg' },
+  { id: 3, src: '../assets/images/3.jpg' },
+  { id: 4, src: '../assets/images/4.jpg' },
+  { id: 5, src: '../assets/images/5.jpg' },
+  { id: 6, src: '../assets/images/6.jpg' }
+];
 
 @Component({
   selector: 'app-root',
@@ -14,18 +30,22 @@ interface Image {
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  images: Image[];
+  images: Image[] = IMAGES;
   boxHeight: number;
   boxArr: any[] = [];
   page = 1;
   pending = false;
   boxList: any[] = [];
+  loading = true;
 
-  constructor(public ele: ElementRef, private imageService: ImageService) { }
+  constructor(
+    public ele: ElementRef,
+    private imageService: ImageService,
+    private loadingService: LoadingService
+  ) { }
 
   ngOnInit() {
     this.getImages();
-
     fromEvent(window, 'scroll').pipe(debounceTime(500))
       .subscribe(() => {
         if (this.pending) { return; }
@@ -34,7 +54,9 @@ export class AppComponent implements OnInit {
           this.imageService.getImages(this.page)
           .subscribe(images => {
             this.pending = false;
+            if (images.length < 1) { return; }
             this.page++;
+            this.loadingService.isLoading = true;
             this.images = [...this.images, ...images];
           });
         }
@@ -55,9 +77,8 @@ export class AppComponent implements OnInit {
     this.imageService.getImages()
       .subscribe(images => {
         this.page++;
-        this.images = images;
+        this.images = [...this.images, ...images];
       });
-    console.log(this.images);
 
   }
 
@@ -93,6 +114,11 @@ export class AppComponent implements OnInit {
           // 5- 修改最小列的高度
           // 最小列的高度 = 当前自己的高度 + 拼接过来的高度 + 间隙的高度
           this.boxArr[minIndex] = this.boxArr[minIndex] + this.boxList[index].offsetHeight + gap;
+      }
+
+      if (index === this.images.length - 1) {
+        if (this.page <= 2) { this.loading = false; }
+        this.loadingService.isLoading = false;
       }
   }
 

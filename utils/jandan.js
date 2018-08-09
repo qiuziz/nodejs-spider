@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-08-08 15:59:25
+ * @Last Modified time: 2018-08-08 17:46:17
  */
 
 const http = require('http'),
@@ -55,7 +55,7 @@ function jandan(url) {
             , imagesLink = $('.view_img_link');
 
 					imagesLink.attr('href',function(index, value){
-						imagesArray.push(value.split('//')[1]);
+						imagesArray.push('https:' + value);
 					});
 					async.mapSeries(imagesArray, function(url, callback) {
 							download(url, callback);
