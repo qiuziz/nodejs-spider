@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-08-08 17:46:17
+ * @Last Modified time: 2018-08-17 13:32:10
  */
 
 const http = require('http'),
@@ -44,7 +44,9 @@ function jandan(url) {
 			page.open(url).then(function(status) {
 				if (status !== 'success') {
 					console.log(status);
-					jandan(url);
+          jandan(url);
+          page.close();
+					ph.exit();
 					return;
 				}
 				page.property('content').then(function(content) {
@@ -64,11 +66,15 @@ function jandan(url) {
 								if (currentPage - 1 > 0) {
 								  sleep.sleep(10);
                   const currentUrl = pageUrl + '/page-' + (currentPage - 1);
-									jandan(currentUrl);
+                  jandan(currentUrl);
+                  page.close();
+                  ph.exit();
 								} else {
                   console.log(url)
                   sleep.sleep(24 * 60 * 60);
-									jandan(pageUrl);
+                  jandan(pageUrl);
+                  page.close();
+                  ph.exit();
 								}
 						});
 					page.close();
