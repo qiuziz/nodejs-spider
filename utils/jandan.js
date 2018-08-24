@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-08-17 13:32:10
+ * @Last Modified time: 2018-08-24 17:07:12
  */
 
 const http = require('http'),
@@ -28,7 +28,6 @@ const pageUrl = 'https://jandan.net/ooxx';
 
 
 function jandan(url) {
-  console.log('当前网页：' + url);
 
 	phantom.create().then(function(ph) {
 
@@ -43,10 +42,9 @@ function jandan(url) {
       });
 			page.open(url).then(function(status) {
 				if (status !== 'success') {
-					console.log(status);
-          jandan(url);
           page.close();
 					ph.exit();
+          jandan(url);
 					return;
 				}
 				page.property('content').then(function(content) {
@@ -66,15 +64,14 @@ function jandan(url) {
 								if (currentPage - 1 > 0) {
 								  sleep.sleep(10);
                   const currentUrl = pageUrl + '/page-' + (currentPage - 1);
+                  page.close();
+                  ph.exit();
                   jandan(currentUrl);
-                  page.close();
-                  ph.exit();
 								} else {
-                  console.log(url)
                   sleep.sleep(24 * 60 * 60);
-                  jandan(pageUrl);
                   page.close();
                   ph.exit();
+                  jandan(pageUrl);
 								}
 						});
 					page.close();
