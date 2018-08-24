@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-15 19:50:58
  * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-08-24 16:56:11
+ * @Last Modified time: 2018-08-24 17:22:37
  */
 
 /*
@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 		const collection = db.collection('jandan');
     //查询数据库
     const query = lastPageId ? {_id : { '$lt' :  lastPageId} } : {};
-		collection.find(query).limit(100).sort({_id: -1}).toArray(function(err,doc){
+		collection.find(query).limit(10).sort({_id: -1}).toArray(function(err,doc){
 			if (err) {
 				console.log(err);
 			  db.close();
