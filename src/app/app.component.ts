@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ImageService } from './image.service';
 import { fromEvent } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { throttleTime, debounceTime } from 'rxjs/operators';
 import { LoadingService } from './loading.service';
 
 interface Image {
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getImages();
-    fromEvent(window, 'scroll').pipe(debounceTime(500))
+    fromEvent(window, 'scroll').pipe(throttleTime(500))
       .subscribe(() => {
         if (this.pending) { return; }
         if (this.getClient().height + this.getScrollTop() >= this.boxList[this.boxList.length - 1].offsetTop) {
