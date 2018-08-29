@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-08-24 17:07:12
+ * @Last Modified time: 2018-08-29 09:38:00
  */
 
 const http = require('http'),
@@ -13,9 +13,14 @@ const http = require('http'),
 		sleep = require('sleep'),
 		phantom = require('phantom'),
 		USER_AGENTS = require('./userAgents'),
-		LEN = USER_AGENTS.length - 1;
+    LEN = USER_AGENTS.length - 1,
+    schedule = require('node-schedule'),
+    scheduleRule = new schedule.RecurrenceRule(),
+    process = require('child_process');
 
-// const ep = new eventproxy();
+scheduleRule.dayOfWeek = [0, new schedule.Range(1, 6)];
+let timeoutJob = '';
+
 const imagesArray = [], urls = [];
 
 // 产生m 到 n 之间的随机数
@@ -26,6 +31,16 @@ function random(m, n) {
 
 const pageUrl = 'https://jandan.net/ooxx';
 
+
+
+function killPlantomJs() {
+  //直接调用命令
+  process.exec('ps -ef|grep phantomjs|grep -v grep|cut -c 9-15|xargs kill -9', (error, stdout, stderr) => {
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
+  });
+}
 
 function jandan(url) {
 
@@ -68,10 +83,14 @@ function jandan(url) {
                   ph.exit();
                   jandan(currentUrl);
 								} else {
-                  sleep.sleep(24 * 60 * 60);
                   page.close();
                   ph.exit();
-                  jandan(pageUrl);
+                  killPlantomJs();
+                  if (!timeoutJob) {
+                    timeoutJob = schedule.scheduleJob(scheduleRule, function(){
+                      jandan(pageUrl);
+                    });
+                  }
 								}
 						});
 					page.close();
