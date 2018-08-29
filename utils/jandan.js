@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-08-29 09:38:00
+ * @Last Modified time: 2018-08-29 11:37:05
  */
 
 const http = require('http'),
@@ -19,6 +19,9 @@ const http = require('http'),
     process = require('child_process');
 
 scheduleRule.dayOfWeek = [0, new schedule.Range(1, 6)];
+scheduleRule.hour = 0;
+
+scheduleRule.minute = 0;
 let timeoutJob = '';
 
 const imagesArray = [], urls = [];
