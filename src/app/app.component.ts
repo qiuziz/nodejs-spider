@@ -45,7 +45,9 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getImages();
+    if (this.getScrollTop() === 0) {
+      this.getImages();
+    }
     fromEvent(window, 'scroll').pipe(throttleTime(500))
       .subscribe(() => {
         if (this.pending) { return; }
