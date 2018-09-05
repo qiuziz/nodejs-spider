@@ -2,4 +2,10 @@
 body {
   position: fixed;
   z-index: 99;
+  height: 100%;
+  width: 100%;
+  padding-top: 44px;
+  padding-left: constant(safe-area-inset-left);
+  padding-right: constant(safe-area-inset-right);
+  padding-bottom: constant(safe-area-inset-bottom);
 }

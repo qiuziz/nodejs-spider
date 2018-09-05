@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.js --disable-host-check",
+    "start": "ng serve --proxy-config proxy.conf.js --port 0 --disable-host-check --host 0.0.0.0",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -19,6 +19,7 @@
     "@angular/http": "^6.0.3",
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
+    "@angular/pwa": "^0.7.5",
     "@angular/router": "^6.0.3",
     "async": "^2.6.1",
     "cheerio": "^1.0.0-rc.2",
@@ -35,7 +36,8 @@
     "sleep": "^5.2.3",
     "superagent": "^1.4.0",
     "superagent-proxy": "^1.0.3",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "@angular/service-worker": "^6.0.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.8",
