@@ -19,16 +19,17 @@
     "resources": {
       "files": [
         "/assets/**"
+      ],
+      "urls": [
+        "https://wx1.sinaimg.cn/**",
+        "https://wx2.sinaimg.cn/**",
+        "https://wx3.sinaimg.cn/**"
       ]
     }
   }],
   "dataGroups": [{
     "name": "data",
-    "urls": [
-      "https://wx1.sinaimg.cn/**",
-      "https://wx2.sinaimg.cn/**",
-      "https://wx3.sinaimg.cn/**"
-    ],
+    "urls": ["/images"],
     "cacheConfig": {
       "maxSize": 100,
       "maxAge": "30d",
