@@ -11,7 +11,7 @@ import { LoadingService } from './loading.service';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+// import { environment } from '../environments/environment';
 registerLocaleData(zh);
 
 @NgModule({
@@ -23,7 +23,7 @@ registerLocaleData(zh);
     BrowserModule,
     HttpClientModule,
     NgZorroAntdModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: true })
   ],
   providers: [LoadingService, { provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
