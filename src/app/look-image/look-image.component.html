@@ -1,6 +1,6 @@
 <div class="box" (click)="lookImg()">
   <div class="content">
-    <img [src]="src" (load)="fromChild.emit({box:box, index:index});" (error)="fromChild.emit({error: true, : index: index});"/>
+    <img [src]="src" (load)="fromChild.emit({box:box, index:index});" (error)="fromChild.emit({error: true, index: index});"/>
     <!-- <h3>Life is need record.</h3> -->
   </div>
 </div>

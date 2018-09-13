@@ -87,6 +87,7 @@ export class AppComponent implements OnInit {
   fromChildFunc(event) {
     if (event.error) {
       this.images.splice(event.index, 1);
+      return;
     }
     this.boxList.push(event.box);
     this.adjustBoxHeight(this.boxList.length - 1);
