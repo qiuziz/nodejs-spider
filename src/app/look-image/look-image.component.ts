@@ -11,6 +11,7 @@ export class LookImageComponent implements OnInit {
   @Input() index: number;
   @Output() fromChild = new EventEmitter();
   showImg = false;
+  loaded = false;
   box: any;
   position: number;
   constructor(public ele: ElementRef, private loadingService: LoadingService) { }
