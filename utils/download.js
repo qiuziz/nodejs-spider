@@ -10,9 +10,8 @@ function download(url, callback) {
 
 	connect((err, db) => {
 		//连接到表 jandan
-    const collection = db.collection('jandan'), id = filename.split('.')[0]
+    const collection = db.collection('jandan'), id = filename.split('.')[0];
     //插入数据库
-    console.log(url);
 		collection.findOne({ src: url }, function(err, result) {
 			if(err)
 			{
