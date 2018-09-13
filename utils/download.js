@@ -5,23 +5,14 @@
 
 const connect = require('./db.js');
 
-function getNextSequenceValue(sequenceName, collection){
-  const sequenceDocument = collection.findAndModify(
-     {
-        query:{id: sequenceName },
-        update: {$inc:{id:1}},
-        "new":true
-     });
-  return sequenceDocument.id;
-}
-
 function download(url, callback) {
   const arr = url.split('/'), filename = arr[arr.length - 1];
 
 	connect((err, db) => {
 		//连接到表 jandan
     const collection = db.collection('jandan'), id = filename.split('.')[0]
-		//插入数据库
+    //插入数据库
+    console.log(url);
 		collection.findOne({ src: url }, function(err, result) {
 			if(err)
 			{
