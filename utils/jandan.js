@@ -1,12 +1,13 @@
 /*
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
- * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-08-29 11:37:05
+ * @Last Modified by: qiuz
+ * @Last Modified time: 2018-09-21 16:07:56
  */
 
 const http = require('http'),
     cheerio = require("cheerio"),
+    request = require('request'),
     async = require("async"),
 		download = require('./download.js'),
 		connect = require('./db.js'),
@@ -47,69 +48,44 @@ function killPlantomJs() {
 
 function jandan(url) {
 
-	phantom.create().then(function(ph) {
+  request({
+    url: 'http://localhost:8081',
+    method: "POST",
+    json: true,
+    headers: {
+        "content-type": "application/json",
+    },
+    body: JSON.stringify({url})
+  }, (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+      const
+        $ = cheerio.load(body)
+        , curPageUrls = $('.current-comment-page')
+        , currentPage = curPageUrls.eq(0).text().split('[')[1].split(']')[0]
+        , imagesLink = $('.view_img_link');
 
-		ph.createPage().then(function(page) {
-			page.property('userAgent', USER_AGENTS[random(0, LEN)]);
-      page.property('resourceTimeout', 10000); // 10 seconds
-      page.on('onResourceTimeout', function(e) {
-        console.log(e.errorCode);   // it'll probably be 408
-        console.log(e.errorString); // it'll probably be 'Network timeout on resource'
-        console.log(e.url);         // the url whose request timed out
-        ph.exit(1);
+      imagesLink.attr('href',function(index, value){
+        imagesArray.push('https:' + value);
       });
-			page.open(url).then(function(status) {
-				if (status !== 'success') {
-          page.close();
-					ph.exit();
-          jandan(url);
-					return;
-				}
-				page.property('content').then(function(content) {
-          const
-            $ = cheerio.load(content)
-            , curPageUrls = $('.current-comment-page')
-            , currentPage = curPageUrls.eq(0).text().split('[')[1].split(']')[0]
-            , imagesLink = $('.view_img_link');
-
-					imagesLink.attr('href',function(index, value){
-						imagesArray.push('https:' + value);
-					});
-					async.mapSeries(imagesArray, function(url, callback) {
-							download(url, callback);
-						}, function(err, result) {
-								if (err) return console.log(err);
-								if (currentPage - 1 > 0) {
-								  sleep.sleep(10);
-                  const currentUrl = pageUrl + '/page-' + (currentPage - 1);
-                  page.close();
-                  ph.exit();
-                  jandan(currentUrl);
-								} else {
-                  page.close();
-                  ph.exit();
-                  killPlantomJs();
-                  if (!timeoutJob) {
-                    timeoutJob = schedule.scheduleJob(scheduleRule, function(){
-                      jandan(pageUrl);
-                    });
-                  }
-								}
-						});
-					page.close();
-					ph.exit();
-				})
-			})
-		})
-		.catch(error => {
-			console.log(error);
-			page.close();
-		});
-	})
-	.catch(error => {
-		console.log(error);
-		ph.exit();
-	});
+      async.mapSeries(imagesArray, function(url, callback) {
+          download(url, callback);
+        }, function(err, result) {
+            if (err) return console.log(err);
+            if (currentPage - 1 > 0) {
+              sleep.sleep(10);
+              const currentUrl = pageUrl + '/page-' + (currentPage - 1);
+              jandan(currentUrl);
+            } else {
+              killPlantomJs();
+              if (!timeoutJob) {
+                timeoutJob = schedule.scheduleJob(scheduleRule, function(){
+                  jandan(pageUrl);
+                });
+              }
+            }
+        });
+    }
+  });
 }
 
 module.exports = jandan;
