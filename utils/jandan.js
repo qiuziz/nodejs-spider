@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz
- * @Last Modified time: 2018-09-21 16:07:56
+ * @Last Modified time: 2018-09-26 17:34:01
  */
 
 const http = require('http'),
@@ -20,7 +20,7 @@ const http = require('http'),
     process = require('child_process');
 
 scheduleRule.dayOfWeek = [0, new schedule.Range(1, 6)];
-scheduleRule.hour = 0;
+scheduleRule.hour = 2;
 
 scheduleRule.minute = 0;
 let timeoutJob = '';
