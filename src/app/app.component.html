@@ -1,4 +1,4 @@
-<nz-spin class="loading" [nzSize]="'large'" *ngIf="loadingService.isLoading && loading && !pending "></nz-spin>
+<!-- <nz-spin class="loading" [nzSize]="'large'" *ngIf="loadingService.isLoading && loading && !pending "></nz-spin> -->
 <div id="container">
   <app-look-image #tref *ngFor="let image of images; index as i" [index]="i" [src]="image.src" (fromChild)="fromChildFunc($event, index)"></app-look-image>
   <nz-spin class="loading local" [nzSize]="'large'" *ngIf="!loading && !pending && loadingService.isLoading"></nz-spin>
