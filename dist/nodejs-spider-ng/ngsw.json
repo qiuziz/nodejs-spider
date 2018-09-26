@@ -1,0 +1,106 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/main.20fabdf06b6f27992ab8.js",
+        "/polyfills.7a0e6866a34e280f48e7.js",
+        "/runtime.a66f828dca56eeb90e02.js",
+        "/styles.545badad5b77d6f817b8.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/icons/launch.png",
+        "/assets/images/1.jpg",
+        "/assets/images/2.jpg",
+        "/assets/images/3.jpg",
+        "/assets/images/4.jpg",
+        "/assets/images/5.jpg",
+        "/assets/images/6.jpg",
+        "/assets/mock/image.ts"
+      ],
+      "patterns": [
+        "https:\\/\\/wx1\\.sinaimg\\.cn\\/.*",
+        "https:\\/\\/wx2\\.sinaimg\\.cn\\/.*",
+        "https:\\/\\/wx3\\.sinaimg\\.cn\\/.*"
+      ]
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "data",
+      "patterns": [
+        "\\/images",
+        "https:\\/\\/wx1\\.sinaimg\\.cn\\/.*",
+        "https:\\/\\/wx2\\.sinaimg\\.cn\\/.*",
+        "https:\\/\\/wx3\\.sinaimg\\.cn\\/.*"
+      ],
+      "strategy": "performance",
+      "maxSize": 100,
+      "maxAge": 2592000000,
+      "timeoutMs": 3000,
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/assets/icons/icon-128x128.png": "0521b2fb4ea5cdd69a8f2fac31739013f686d30d",
+    "/assets/icons/icon-144x144.png": "0fcbeff42df1f0977717acd0f4722d2e3d5b872d",
+    "/assets/icons/icon-152x152.png": "ca0aae0e6a2bc57bc0247e69892d4290998044be",
+    "/assets/icons/icon-192x192.png": "04dffc65e10e193500932f6148d2a67d64165d95",
+    "/assets/icons/icon-384x384.png": "9ff827c5e6333fbd445cc100a2cadb097f1fbfe5",
+    "/assets/icons/icon-512x512.png": "2a24b49f39a0b6750c71af062c770406c5c5d1ea",
+    "/assets/icons/icon-72x72.png": "818052f945db34e5bf50d0af2c223ea9c3f7fcee",
+    "/assets/icons/icon-96x96.png": "2e49d138f546579e543d1d680ecd6e26eb3abb3d",
+    "/assets/icons/launch.png": "6391ec8255740d7c82624dc6a6fd31da1ad9be1d",
+    "/assets/images/1.jpg": "c9b925335e99e88344c4659d10e12560ee058979",
+    "/assets/images/2.jpg": "4d5716b4eb99af77deeed224fb84634e9f560b29",
+    "/assets/images/3.jpg": "22098f52bf78d6d08a596668900321138de207f0",
+    "/assets/images/4.jpg": "81382ed7433d2aa3af2b03e13660fa3773ad230f",
+    "/assets/images/5.jpg": "6f83ce8644f056510970cd1ffcc5221f357b06dc",
+    "/assets/images/6.jpg": "a7c20baff036d0af9f4721c9b13c7cc95cd1e67c",
+    "/assets/mock/image.ts": "366b9014e5e01a35ccdfa9ce35fd3a29337625cc",
+    "/favicon.ico": "a5b9f02fe8428bae748f8d026ab1cc1732c38888",
+    "/index.html": "618cad78a800ef81855368583e84f603f5ed77db",
+    "/main.20fabdf06b6f27992ab8.js": "c7ff14a39622fce46751f06eb9a04c9b008e91e6",
+    "/polyfills.7a0e6866a34e280f48e7.js": "9f0b8341c0a0caec1581da2f255eb5dbb8e12303",
+    "/runtime.a66f828dca56eeb90e02.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
+    "/styles.545badad5b77d6f817b8.css": "0171c54429eff31896ae7ddfd0e7e36c5b7ac220"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
