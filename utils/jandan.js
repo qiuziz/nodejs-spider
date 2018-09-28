@@ -2,17 +2,15 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz
- * @Last Modified time: 2018-09-26 17:34:01
+ * @Last Modified time: 2018-09-28 10:00:20
  */
 
-const http = require('http'),
-    cheerio = require("cheerio"),
+const cheerio = require("cheerio"),
     request = require('request'),
     async = require("async"),
 		download = require('./download.js'),
 		connect = require('./db.js'),
 		sleep = require('sleep'),
-		phantom = require('phantom'),
 		USER_AGENTS = require('./userAgents'),
     LEN = USER_AGENTS.length - 1,
     schedule = require('node-schedule'),
