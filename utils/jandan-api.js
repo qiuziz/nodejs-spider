@@ -1,15 +1,8 @@
 /*
- * @Author: qiuziz
+ * @Author: qiuz
  * @Date: 2017-05-15 19:50:58
- * @Last Modified by: qiuz <https://github.com/qiuziz>
- * @Last Modified time: 2018-08-24 17:22:37
- */
-
-/*
- * @Author: qiuziz
- * @Date: 2017-04-28 21:17:30
- * @Last Modified by: qiuziz
- * @Last Modified time: 2017-05-10 11:05:29
+ * @Last Modified by: qiuz
+ * @Last Modified time: 2018-10-08 09:50:09
  */
 
 const express = require("express"),
