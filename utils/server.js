@@ -9,10 +9,10 @@ const http = require('http'),
 
 const app = express();
 
-const pageUrl = 'https://jandan.net/ooxx';
+// const pageUrl = 'https://jandan.net/ooxx';
 const port = process.env.PORT || 4200;
 
-jandan(pageUrl);
+// jandan(pageUrl);
 
 app.use('/jandan/images', require('./jandan-api.js'));
 
