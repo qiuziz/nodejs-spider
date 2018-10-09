@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz
- * @Last Modified time: 2018-10-09 16:25:54
+ * @Last Modified time: 2018-10-09 16:44:02
  */
 
 const cheerio = require("cheerio"),
@@ -62,7 +62,7 @@ function jandan(url) {
   })
   .catch(err => {
     console.log(new Date(), 'jandan error:', err);
-    jandan(url + '/page-' + (currentPage - 1));
+    jandan(pageUrl + '/page-' + (currentPage - 1));
   });
 }
 
