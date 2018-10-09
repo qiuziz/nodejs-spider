@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz
- * @Last Modified time: 2018-10-09 16:23:02
+ * @Last Modified time: 2018-10-09 16:25:32
  */
 
 const cheerio = require("cheerio"),
@@ -61,7 +61,7 @@ function jandan(url) {
     });
   })
   .catch(err => {
-    console.log('jandan error:', err);
+    console.log(new Date(),'jandan error:', err);
     jandan(url + '/page-' + (currentPage - 1));
   });
 }
