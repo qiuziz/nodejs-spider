@@ -7,7 +7,7 @@ const connect = require('./db.js');
 
 function download(url, callback) {
   const arr = url.split('/'), filename = arr[arr.length - 1];
-
+  console.log(url)
 	connect((err, db) => {
 		//连接到表 jandan
     const collection = db.collection('jandan'), id = filename.split('.')[0];
