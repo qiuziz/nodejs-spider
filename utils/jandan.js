@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz
- * @Last Modified time: 2018-10-09 16:44:02
+ * @Last Modified time: 2018-10-09 17:15:12
  */
 
 const cheerio = require("cheerio"),
@@ -31,7 +31,7 @@ function random(m, n) {
 }
 
 const pageUrl = 'https://jandan.net/ooxx';
-let currentPage = 1;
+let currentPage = 1, retry = true;
 
 function jandan(url) {
   return request(url).then($ => {
@@ -62,7 +62,10 @@ function jandan(url) {
   })
   .catch(err => {
     console.log(new Date(), 'jandan error:', err);
-    jandan(pageUrl + '/page-' + (currentPage - 1));
+    retry && jandan(currentPage > 1 ? (pageUrl + '/page-' + (currentPage - 1)) : pageUrl);
+    if (currentPage <= 1) {
+      retry = false;
+    }
   });
 }
 
