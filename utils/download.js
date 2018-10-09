@@ -19,6 +19,7 @@ function download(url, callback) {
 					return;
 			}
 			if (result) {
+        conosle.log(url + '已存在');
         callback(null, filename);
         db.close();
 				return;
