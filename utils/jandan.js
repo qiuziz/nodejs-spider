@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz
- * @Last Modified time: 2018-10-09 17:15:12
+ * @Last Modified time: 2018-10-09 17:42:34
  */
 
 const cheerio = require("cheerio"),
@@ -39,7 +39,7 @@ function jandan(url) {
       , imagesLink = $('.view_img_link');
 
     currentPage = curPageUrls.eq(0).text().split('[')[1].split(']')[0];
-
+    console.log(url)
     imagesLink.attr('href',function(index, value){
       imagesArray.push('https:' + value);
     });
