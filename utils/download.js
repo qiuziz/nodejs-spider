@@ -5,36 +5,25 @@
 
 const connect = require('./db.js');
 
-function download(url, callback) {
-  const arr = url.split('/'), filename = arr[arr.length - 1];
+function download(urls) {
+  urls = urls.map(url => {
+    return {src: url};
+  });
+  console.log(urls);
 	connect((err, db) => {
 		//连接到表 jandan
-    const collection = db.collection('jandan'), id = filename.split('.')[0];
+    const collection = db.collection('jandan');
     //插入数据库
-		collection.findOne({ src: url }, function(err, result) {
-			if(err)
-			{
-					console.log('Error:'+ err);
-					return;
-			}
-			if (result) {
-        console.log(url + '已存在');
-        callback(null, filename);
+
+      collection.insert(urls, { ordered: false }, function(err, result) {
+        if(err)
+        {
+            console.log('Error:'+ err);
+            db.close();
+            return;
+        }
         db.close();
-				return;
-			} else {
-        collection.insert({ src: url }, function(err, result) {
-          if(err)
-          {
-              console.log('Error:'+ err);
-              db.close();
-              return;
-          }
-          db.close();
-        });
-        callback(null, filename);
-			}
-		})
+      });
 	})
 }
 
