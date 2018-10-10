@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz
- * @Last Modified time: 2018-10-10 10:05:57
+ * @Last Modified time: 2018-10-10 11:40:23
  */
 
 const cheerio = require("cheerio"),
@@ -31,7 +31,7 @@ function random(m, n) {
 }
 
 const pageUrl = 'https://jandan.net/ooxx';
-let currentPage = 1, retry = true, imagesUrls = [];
+let currentPage = 1, retry = true;
 
 function jandan(url) {
   return request(url).then($ => {
@@ -44,8 +44,7 @@ function jandan(url) {
       imagesArray.push('https:' + value);
     });
     async.mapSeries(imagesArray, function(url, callback) {
-        save(imagesUrls, url, callback);
-        // download(url, callback);
+        download(url, callback);
       }, function(err, result) {
         if (err) return console.log(err);
         if (currentPage - 1 > 0) {
@@ -53,8 +52,6 @@ function jandan(url) {
           const currentUrl = pageUrl + '/page-' + (currentPage - 1);
           jandan(currentUrl);
         } else {
-          download(imagesUrls);
-          imagesUrls = [];
           if (!timeoutJob) {
             timeoutJob = schedule.scheduleJob(scheduleRule, function(){
               jandan(pageUrl);
@@ -64,18 +61,12 @@ function jandan(url) {
     });
   })
   .catch(err => {
-    console.log(new Date())
+    console.log(new Date());
     console.log('jandan error:\n', err);
-    retry && jandan(currentPage > 1 ? (pageUrl + '/page-' + (currentPage - 1)) : pageUrl);
-    if (currentPage <= 1) {
-      retry = false;
+    if (currentPage > 1) {
+      jandan(pageUrl + '/page-' + ((currentPage--) - 1));
     }
   });
-}
-
-function save(arr, url,callback) {
-  arr.push(url);
-  callback(null, url);
 }
 
 jandan(pageUrl);
