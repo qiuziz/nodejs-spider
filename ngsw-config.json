@@ -26,20 +26,5 @@
         "https://wx3.sinaimg.cn/**"
       ]
     }
-  }],
-  "dataGroups": [{
-    "name": "data",
-    "urls": [
-      "/images",
-      "https://wx1.sinaimg.cn/**",
-      "https://wx2.sinaimg.cn/**",
-      "https://wx3.sinaimg.cn/**"
-    ],
-    "cacheConfig": {
-      "maxSize": 100,
-      "maxAge": "30d",
-      "timeout": "3s",
-      "strategy": "performance"
-    }
   }]
 }

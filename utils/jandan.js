@@ -2,7 +2,7 @@
  * @Author: qiuziz
  * @Date: 2017-05-17 20:12:03
  * @Last Modified by: qiuz
- * @Last Modified time: 2018-10-10 11:40:23
+ * @Last Modified time: 2018-10-12 10:39:20
  */
 
 const cheerio = require("cheerio"),
@@ -48,7 +48,7 @@ function jandan(url) {
       }, function(err, result) {
         if (err) return console.log(err);
         if (currentPage - 1 > 0) {
-          sleep.sleep(60);
+          sleep.sleep(200);
           const currentUrl = pageUrl + '/page-' + (currentPage - 1);
           jandan(currentUrl);
         } else {

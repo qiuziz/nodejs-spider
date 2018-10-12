@@ -9,10 +9,10 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.20fabdf06b6f27992ab8.js",
+        "/main.5fd7386159b9f315c9a6.js",
         "/polyfills.7a0e6866a34e280f48e7.js",
         "/runtime.a66f828dca56eeb90e02.js",
-        "/styles.545badad5b77d6f817b8.css"
+        "/styles.a04ba3413479140bdad9.css"
       ],
       "patterns": []
     },
@@ -45,22 +45,7 @@
       ]
     }
   ],
-  "dataGroups": [
-    {
-      "name": "data",
-      "patterns": [
-        "\\/images",
-        "https:\\/\\/wx1\\.sinaimg\\.cn\\/.*",
-        "https:\\/\\/wx2\\.sinaimg\\.cn\\/.*",
-        "https:\\/\\/wx3\\.sinaimg\\.cn\\/.*"
-      ],
-      "strategy": "performance",
-      "maxSize": 100,
-      "maxAge": 2592000000,
-      "timeoutMs": 3000,
-      "version": 1
-    }
-  ],
+  "dataGroups": [],
   "hashTable": {
     "/assets/icons/icon-128x128.png": "0521b2fb4ea5cdd69a8f2fac31739013f686d30d",
     "/assets/icons/icon-144x144.png": "0fcbeff42df1f0977717acd0f4722d2e3d5b872d",
@@ -79,11 +64,11 @@
     "/assets/images/6.jpg": "a7c20baff036d0af9f4721c9b13c7cc95cd1e67c",
     "/assets/mock/image.ts": "366b9014e5e01a35ccdfa9ce35fd3a29337625cc",
     "/favicon.ico": "a5b9f02fe8428bae748f8d026ab1cc1732c38888",
-    "/index.html": "618cad78a800ef81855368583e84f603f5ed77db",
-    "/main.20fabdf06b6f27992ab8.js": "c7ff14a39622fce46751f06eb9a04c9b008e91e6",
+    "/index.html": "11cf65cba4d6e9bf1a1b6499674c309c5e3b38ca",
+    "/main.5fd7386159b9f315c9a6.js": "5ed160c0e6580f25f2e429a500807ddebd540635",
     "/polyfills.7a0e6866a34e280f48e7.js": "9f0b8341c0a0caec1581da2f255eb5dbb8e12303",
     "/runtime.a66f828dca56eeb90e02.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
-    "/styles.545badad5b77d6f817b8.css": "0171c54429eff31896ae7ddfd0e7e36c5b7ac220"
+    "/styles.a04ba3413479140bdad9.css": "124fd5b3335aa1f5f7144019e3b0894576fad345"
   },
   "navigationUrls": [
     {
