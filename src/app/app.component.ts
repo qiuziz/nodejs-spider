@@ -9,6 +9,21 @@ interface Image {
   src: string;
 }
 
+
+function funDownload(src: string, filename = '') {
+  // 创建隐藏的可下载链接
+  const eleLink = document.createElement('a');
+  eleLink.download = src;
+  eleLink.style.display = 'none';
+  // // 字符内容转变成blob地址
+  eleLink.href = src;
+  // // 触发点击
+  document.body.appendChild(eleLink);
+  eleLink.click();
+  // // 然后移除
+  document.body.removeChild(eleLink);
+}
+
 const IMAGES = [
   { id: 29, src: '../assets/images/29.jpg' },
   { id: 1, src: '../assets/images/1.jpg' },
@@ -54,6 +69,8 @@ export class AppComponent implements OnInit {
   pending = false;
   boxList: any[] = [];
   loading = true;
+  visible = false;
+  src = '';
 
   constructor(
     public ele: ElementRef,
@@ -101,13 +118,34 @@ export class AppComponent implements OnInit {
 
   }
 
-  fromChildFunc(event) {
+  fromChildFunc(event: any) {
+    if (event.option) {
+      this.src = this.images[event.index].src;
+      this.showDrawer();
+      return;
+    }
     if (event.error) {
       this.images.splice(event.index, 1);
       return;
     }
     this.boxList.push(event.box);
     this.adjustBoxHeight(this.boxList.length - 1);
+  }
+
+  download(src): void {
+    console.log(src);
+    funDownload(src);
+  }
+  link(src): void {
+    console.log(src);
+  }
+  unlink(src): void {
+    console.log(src);
+  }
+
+
+  showDrawer() {
+    this.visible = !this.visible;
   }
 
   adjustBoxHeight(index) {
@@ -121,9 +159,9 @@ export class AppComponent implements OnInit {
 
       if (index < columns) {
           // 2. 确定第一行
-          this.boxList[index].style.top = 10 + 'px';
+          this.boxList[index].style.top = 50 + 'px';
           this.boxList[index].style.left = (itemWidth + gap) * index + initLeft + 'px';
-          this.boxArr.push(this.boxList[index].offsetHeight);
+          this.boxArr.push(this.boxList[index].offsetHeight + this.boxList[index].offsetTop);
       } else {
           // 其他行
           // 3- 找到数组中最小高度  和 它的索引

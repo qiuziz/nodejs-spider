@@ -10,15 +10,11 @@
       </div> -->
     </div>
     <div class="more">
-      <span class="omit" (click)="showDrawer()">•••</span>
+      <i class="mz-iconfont icon-more omit" (click)="fromChild.emit({box:box, index:index, option: true})"></i>
     </div>
   </div>
 </div>
-<nz-drawer nzWrapClassName="drawer" [nzVisible]="visible" (nzOnClose)="showDrawer()" nzPlacement="bottom" nzTitle="Options">
-  <p class="option-btn" (click)="download(src)">Save</p>
-  <p class="option-btn" (click)="like(src)">Like</p>
-  <p class="option-btn" (click)="unlink(src)">Unlike</p>
-</nz-drawer>
+
 <div class="img-wrap" *ngIf="showImg" (click)="lookImg()">
   <div class="mark"></div>
   <img [src]="src" />

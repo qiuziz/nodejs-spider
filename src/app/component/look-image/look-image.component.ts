@@ -1,21 +1,8 @@
 import { Component, OnInit, Input, ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
-import { LoadingService } from '../loading.service';
+import { LoadingService } from '../../loading.service';
 declare var window: any;
 
 
-function funDownload(src: string, filename = '') {
-  // 创建隐藏的可下载链接
-  const eleLink = document.createElement('a');
-  eleLink.download = src;
-  eleLink.style.display = 'none';
-  // // 字符内容转变成blob地址
-  eleLink.href = src;
-  // // 触发点击
-  document.body.appendChild(eleLink);
-  eleLink.click();
-  // // 然后移除
-  document.body.removeChild(eleLink);
-}
 
 @Component({
   selector: 'app-look-image',
@@ -33,7 +20,6 @@ export class LookImageComponent implements OnInit {
   press = false;
   box: any;
   position: number;
-  visible = false;
 
   private get hammerLib() {
     return typeof window !== 'undefined' ? (window as any).Hammer : undefined;
@@ -57,20 +43,6 @@ export class LookImageComponent implements OnInit {
     // });
   }
 
-  download(src): void {
-    console.log(src);
-    funDownload(src);
-  }
-  link(src): void {
-    console.log(src);
-  }
-  unlink(src): void {
-    console.log(src);
-  }
-
-  showDrawer() {
-    this.visible = !this.visible;
-  }
 
   toggleOpt(e: any) {
     e.preventDefault();

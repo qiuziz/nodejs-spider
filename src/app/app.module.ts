@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { LookImageComponent } from './look-image/look-image.component';
+import { LookImageComponent } from './component/look-image/look-image.component';
+import { FooterComponent } from './component/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { LoadingService } from './loading.service';
@@ -17,7 +18,8 @@ registerLocaleData(zh);
 @NgModule({
   declarations: [
     AppComponent,
-    LookImageComponent
+    LookImageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
