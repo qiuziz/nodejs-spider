@@ -114,8 +114,9 @@
     tslib "^1.9.0"
 
 "@angular/cdk@^6.0.0":
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.4.3.tgz#4881276b25ab91e7cb8378bc94ea36dbaa0da987"
+  version "6.4.7"
+  resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-6.4.7.tgz#1549b304dd412e82bd854cc55a7d5c6772ee0411"
+  integrity sha512-18x0U66fLD5kGQWZ9n3nb75xQouXlWs7kUDaTd8HTrHpT1s2QIAqlLd1KxfrYiVhsEC2jPQaoiae7VnBlcvkBg==
   dependencies:
     tslib "^1.7.1"
 
@@ -210,6 +211,14 @@
   version "6.1.9"
   resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-6.1.9.tgz#c45f929ddc369c3ba75985656c8774e94c9fd322"
   dependencies:
+    tslib "^1.9.0"
+
+"@ant-design/icons-angular@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@ant-design/icons-angular/-/icons-angular-1.0.1.tgz#6eeddbc864deac378c36d882d566d8cce840ad2b"
+  integrity sha512-BSF1mNejVzbQbQTTkHILNmx+F9/YLO4UAechEBnMV3f7nl2EopAtqRsGfAH+AuDwYCEXqYtPdTYXnYpYSDdNbw==
+  dependencies:
+    ant-design-palettes "^1.1.3"
     tslib "^1.9.0"
 
 "@ngtools/webpack@6.0.8":
@@ -521,6 +530,13 @@ ansi-styles@^3.1.0, ansi-styles@^3.2.1:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-3.2.1.tgz#41fbb20243e50b12be0f04b8dedbf07520ce841d"
   dependencies:
     color-convert "^1.9.0"
+
+ant-design-palettes@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.npmjs.org/ant-design-palettes/-/ant-design-palettes-1.1.3.tgz#84119b1a4d86363adc52a38d587e65336a0a27dd"
+  integrity sha512-UpkkTp8egEN21KZNvY7sTcabLlkHvLvS71EVPk4CYi77Z9AaGGCaVn7i72tbOgWDrQp2wjIg8WgMbKBdK7GtWA==
+  dependencies:
+    tinycolor2 "^1.4.1"
 
 anymatch@^1.3.0:
   version "1.3.2"
@@ -1649,8 +1665,9 @@ dashdash@^1.12.0:
     assert-plus "^1.0.0"
 
 date-fns@^1.29.0:
-  version "1.29.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
+  version "1.30.1"
+  resolved "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
+  integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
 date-now@^0.1.4:
   version "0.1.4"
@@ -4093,11 +4110,14 @@ next-tick@1:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
 ng-zorro-antd@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/ng-zorro-antd/-/ng-zorro-antd-1.3.0.tgz#19b802141156fb00a9b76a25493876763d9bbc06"
+  version "1.8.1"
+  resolved "https://registry.npmjs.org/ng-zorro-antd/-/ng-zorro-antd-1.8.1.tgz#8a7fb34385e77cae40d102927e4f789d1aebe0d5"
+  integrity sha512-XNEwzt535/rILb/tEEwYBd2Ex4B4BwH7dzlbJAcpZZnN2tbIJYGNUiwbHo/o6t41Fv0qAgF/zmIlI0wQH+U7yA==
   dependencies:
     "@angular/cdk" "^6.0.0"
+    "@ant-design/icons-angular" "^1.0.1"
     date-fns "^1.29.0"
+    tslib "^1.9.0"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -5929,6 +5949,11 @@ timers-browserify@^2.0.4:
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.10.tgz#1d28e3d2aadf1d5a5996c4e9f95601cd053480ae"
   dependencies:
     setimmediate "^1.0.4"
+
+tinycolor2@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
+  integrity sha1-9PrTM0R7wLB9TcjpIJ2POaisd+g=
 
 tmp@0.0.24:
   version "0.0.24"

@@ -10,18 +10,35 @@ interface Image {
 }
 
 const IMAGES = [
+  { id: 29, src: '../assets/images/29.jpg' },
   { id: 1, src: '../assets/images/1.jpg' },
   { id: 2, src: '../assets/images/2.jpg' },
-  { id: 3, src: '../assets/images/3.jpg' },
+  { id: 7, src: '../assets/images/7.jpg' },
+  { id: 27, src: '../assets/images/27.jpg' },
+  { id: 28, src: '../assets/images/28.jpg' },
+  { id: 8, src: '../assets/images/8.jpg' },
+  { id: 9, src: '../assets/images/9.jpg' },
+  { id: 10, src: '../assets/images/10.jpg' },
+  { id: 11, src: '../assets/images/11.jpg' },
+  { id: 12, src: '../assets/images/12.jpg' },
+  { id: 23, src: '../assets/images/23.jpg' },
+  { id: 13, src: '../assets/images/13.jpg' },
+  { id: 14, src: '../assets/images/14.jpg' },
+  { id: 15, src: '../assets/images/15.jpg' },
+  { id: 16, src: '../assets/images/16.jpg' },
+  { id: 17, src: '../assets/images/17.jpg' },
+  { id: 18, src: '../assets/images/18.jpg' },
   { id: 4, src: '../assets/images/4.jpg' },
-  { id: 5, src: '../assets/images/5.jpg' },
+  { id: 19, src: '../assets/images/19.jpg' },
+  { id: 20, src: '../assets/images/20.jpg' },
+  { id: 21, src: '../assets/images/21.jpg' },
   { id: 6, src: '../assets/images/6.jpg' },
-  { id: 1, src: '../assets/images/1.jpg' },
-  { id: 2, src: '../assets/images/2.jpg' },
-  { id: 3, src: '../assets/images/3.jpg' },
-  { id: 4, src: '../assets/images/4.jpg' },
+  { id: 22, src: '../assets/images/22.jpg' },
   { id: 5, src: '../assets/images/5.jpg' },
-  { id: 6, src: '../assets/images/6.jpg' }
+  { id: 24, src: '../assets/images/24.jpg' },
+  { id: 25, src: '../assets/images/25.jpg' },
+  { id: 26, src: '../assets/images/26.jpg' },
+  { id: 3, src: '../assets/images/3.jpg' },
 ];
 
 @Component({

@@ -33,6 +33,7 @@ export class LookImageComponent implements OnInit {
   press = false;
   box: any;
   position: number;
+  visible = false;
 
   private get hammerLib() {
     return typeof window !== 'undefined' ? (window as any).Hammer : undefined;
@@ -43,17 +44,17 @@ export class LookImageComponent implements OnInit {
   ngOnInit() {
     this.box = this.ele.nativeElement.querySelector('.box');
     this.onPress();
-    this.imgBox.nativeElement.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
-    const hammer = new window.Hammer.Manager(this.imgBox.nativeElement);
-    hammer.add(new window.Hammer.Press({time: 700, threshold: 5}));
-    hammer.on('press', (e: any) => {
-      console.log(e);
-      e.preventDefault();
-      this.showOpt = true;
-      this.press = true;
-    });
+    // this.imgBox.nativeElement.addEventListener('contextmenu', function(e) {
+    //   e.preventDefault();
+    // });
+    // const hammer = new window.Hammer.Manager(this.imgBox.nativeElement);
+    // hammer.add(new window.Hammer.Press({time: 700, threshold: 5}));
+    // hammer.on('press', (e: any) => {
+    //   console.log(e);
+    //   e.preventDefault();
+    //   this.showOpt = true;
+    //   this.press = true;
+    // });
   }
 
   download(src): void {
@@ -65,6 +66,10 @@ export class LookImageComponent implements OnInit {
   }
   unlink(src): void {
     console.log(src);
+  }
+
+  showDrawer() {
+    this.visible = !this.visible;
   }
 
   toggleOpt(e: any) {

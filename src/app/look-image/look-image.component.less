@@ -15,7 +15,8 @@ img { pointer-events: none; }
 }
 
 .box {
-  width: 300px;
+  width: 40%;
+  max-width: 300px;
   position: absolute;
   cursor: zoom-in;
 
@@ -40,37 +41,28 @@ img { pointer-events: none; }
 }
 
 .content {
-	box-shadow: 0 0 8px gray;
-	border-radius: 5px;
+	// box-shadow: 0 0 8px gray;
   overflow: hidden;
 	margin: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   opacity: 0;
   position: relative;
 
   img {
     width: 100%;
     height: auto;
+	  border-radius: 5px;
   }
 
-  .option {
-    position: absolute;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: 100%;
 
-    button {
-      background: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 5px 10px;
-      font-size: 12px;
-      height: 30px;
-    }
+  .more {
+    text-align: right;
+    width: 100%;
+    margin-right: 15px;
+    color: #8e8e8e;
   }
 
   h3 {
@@ -87,6 +79,7 @@ img { pointer-events: none; }
     background: #fff;
   }
 }
+
 
 
 
@@ -149,3 +142,27 @@ img { pointer-events: none; }
 }
 
 
+
+::ng-deep .drawer {
+  border: 1px solid rgb(239, 239, 239);
+  touch-action: none;
+  transition-property: transform, opacity;
+  transition-timing-function: ease-out;
+  width: 100vw;
+  z-index: 1;
+
+  .ant-drawer-title {
+    color: #333;
+    font-size: 21px;
+  }
+ .option-btn {
+    padding-bottom: 8px;
+    padding-top: 8px;
+    color: #333;
+    font-size: 18px;
+    hyphens: auto;
+    word-wrap: break-word;
+    font-weight: 700;
+    letter-spacing: -.4px;
+  }
+}
