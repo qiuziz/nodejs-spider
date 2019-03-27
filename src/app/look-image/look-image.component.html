@@ -1,7 +1,12 @@
 <div class="box" (click)="lookImg()">
-  <div class="content" [ngStyle]="{'opacity': loaded ? '1' : '0'}">
+  <div class="content" #imgBox [ngStyle]="{'opacity': loaded ? '1' : '0'}">
     <img [src]="src" (load)="loaded = true;fromChild.emit({box:box, index:index});" (error)="fromChild.emit({error: true, index: index});"/>
     <!-- <h3>Life is need record.</h3> -->
+    <div *ngIf="showOpt" class="option" (click)="showOpt && toggleOpt($event)">
+      <button (click)="download(src)">保存</button>
+      <button (click)="like(src)">收藏</button>
+      <button (click)="unlink(src)">不喜欢</button>
+    </div>
   </div>
 </div>
 <div class="img-wrap" *ngIf="showImg" (click)="lookImg()">
