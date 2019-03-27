@@ -16,8 +16,8 @@
 </div>
 <nz-drawer nzWrapClassName="drawer" [nzVisible]="visible" (nzOnClose)="showDrawer()" nzPlacement="bottom" nzTitle="Options">
   <p class="option-btn" (click)="download(src)">Save</p>
-  <p class="option-btn" (click)="like(src)">Link</p>
-  <p class="option-btn" (click)="unlink(src)">Unlink</p>
+  <p class="option-btn" (click)="like(src)">Like</p>
+  <p class="option-btn" (click)="unlink(src)">Unlike</p>
 </nz-drawer>
 <div class="img-wrap" *ngIf="showImg" (click)="lookImg()">
   <div class="mark"></div>
