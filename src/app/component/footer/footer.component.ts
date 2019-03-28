@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 declare var window: any;
 
 
@@ -9,10 +10,14 @@ declare var window: any;
 })
 export class FooterComponent implements OnInit {
 
-  constructor(public ele: ElementRef) { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
 
+  }
+
+  go(path: string) {
+    this.router.navigate([path]);
   }
 
 }

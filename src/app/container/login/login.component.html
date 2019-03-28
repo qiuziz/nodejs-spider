@@ -1,0 +1,19 @@
+<div class="login">
+  <div class="logo">
+    <img src="../../../assets/icons/icon-512x512.png" alt="meizi">
+  </div>
+  <nz-input-group class="user-info username" [nzSuffix]="userSuffixTemplate" [nzPrefix]="userPrefixTemplate">
+    <input type="text" nz-input placeholder="Enter your username" [(ngModel)]="username" />
+  </nz-input-group>
+  <ng-template #userPrefixTemplate><i nz-icon type="user"></i></ng-template>
+  <ng-template #userSuffixTemplate
+    ><i nz-icon type="close-circle" (click)="username = ''" *ngIf="username"></i
+  ></ng-template>
+  <nz-input-group class="user-info password" [nzSuffix]="pwdSuffixTemplate" [nzPrefix]="pwdPrefixTemplate">
+    <input type="password" nz-input placeholder="Enter your password" [(ngModel)]="password" />
+  </nz-input-group>
+  <ng-template #pwdPrefixTemplate><i nz-icon type="lock"></i></ng-template>
+  <ng-template #pwdSuffixTemplate
+    ><i nz-icon type="close-circle" (click)="password = ''" *ngIf="password"></i
+  ></ng-template>
+</div>
