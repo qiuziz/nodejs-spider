@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 declare var window: any;
 
 
@@ -9,10 +10,15 @@ declare var window: any;
   styleUrls: ['./footer.component.less']
 })
 export class FooterComponent implements OnInit {
-
-  constructor(public router: Router) { }
+  currentPath = '';
+  constructor(public router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.router.events
+    .pipe(filter(evt => evt instanceof NavigationEnd))
+    .subscribe((event: any) => {
+      this.currentPath = event.url;
+    });
   }
 
   go(path: string) {
@@ -23,7 +29,9 @@ export class FooterComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (!token) {
       this.go('login');
+      return;
     }
+    this.go('like');
   }
 
 }

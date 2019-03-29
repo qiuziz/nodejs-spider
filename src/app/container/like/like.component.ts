@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { HttpService } from '../../http.service';
-import { fromEvent } from 'rxjs';
-import { throttleTime, debounceTime, delay } from 'rxjs/operators';
+import { fromEvent, Observable } from 'rxjs';
+import { throttleTime, debounceTime } from 'rxjs/operators';
 import { LoadingService } from '../../loading.service';
 import { Router } from '@angular/router';
 
@@ -24,45 +24,13 @@ function funDownload(src: string, filename = '') {
   document.body.removeChild(eleLink);
 }
 
-const IMAGES = [
-  { id: 29, src: '../assets/images/29.jpg' },
-  { id: 1, src: '../assets/images/1.jpg' },
-  { id: 2, src: '../assets/images/2.jpg' },
-  { id: 7, src: '../assets/images/7.jpg' },
-  { id: 27, src: '../assets/images/27.jpg' },
-  { id: 28, src: '../assets/images/28.jpg' },
-  { id: 8, src: '../assets/images/8.jpg' },
-  { id: 9, src: '../assets/images/9.jpg' },
-  { id: 10, src: '../assets/images/10.jpg' },
-  { id: 11, src: '../assets/images/11.jpg' },
-  { id: 12, src: '../assets/images/12.jpg' },
-  { id: 23, src: '../assets/images/23.jpg' },
-  { id: 13, src: '../assets/images/13.jpg' },
-  { id: 14, src: '../assets/images/14.jpg' },
-  { id: 15, src: '../assets/images/15.jpg' },
-  { id: 16, src: '../assets/images/16.jpg' },
-  { id: 17, src: '../assets/images/17.jpg' },
-  { id: 18, src: '../assets/images/18.jpg' },
-  { id: 4, src: '../assets/images/4.jpg' },
-  { id: 19, src: '../assets/images/19.jpg' },
-  { id: 20, src: '../assets/images/20.jpg' },
-  { id: 21, src: '../assets/images/21.jpg' },
-  { id: 6, src: '../assets/images/6.jpg' },
-  { id: 22, src: '../assets/images/22.jpg' },
-  { id: 5, src: '../assets/images/5.jpg' },
-  { id: 24, src: '../assets/images/24.jpg' },
-  { id: 25, src: '../assets/images/25.jpg' },
-  { id: 26, src: '../assets/images/26.jpg' },
-  { id: 3, src: '../assets/images/3.jpg' },
-];
-
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less']
+  selector: 'app-like',
+  templateUrl: './like.component.html',
+  styleUrls: ['./like.component.less']
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  images: Image[] = IMAGES;
+export class LikeComponent implements OnInit, OnDestroy {
+  images: Image[] = [];
   image: Image;
   boxHeight: number;
   boxArr: any[] = [];
@@ -83,16 +51,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.getScrollTop() === 0) {
-      this.getImages(this.page);
+      this.getLikeList();
     }
-    this.scrollEvent = fromEvent(window, 'scroll').pipe(debounceTime(500))
+    this.scrollEvent = fromEvent(window, 'scroll').pipe(throttleTime(500))
       .subscribe(() => {
-        console.log(this.getScrollTop() >= (this.boxList[this.boxList.length - 1].offsetTop + 50));
         if (this.pending) { return; }
-        if (this.boxList.length > 0
-            && this.getClient().height + this.getScrollTop() >= (this.boxList[this.boxList.length - 1].offsetTop + 50)) {
+        if (this.boxList.length > 0 && this.getClient().height + this.getScrollTop() >= this.boxList[this.boxList.length - 1].offsetTop) {
           this.pending = true;
-          this.getImages(this.page);
+          this.getLikeList();
         }
       });
 
@@ -112,17 +78,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.resizeEvent.unsubscribe();
   }
 
-  getImages(page: number): void {
-    console.log(111);
-    this.httpService.getImages(page)
-    .pipe(delay(0))
-    .subscribe(images => {
-      this.pending = false;
-      if (images.length < 1) { return; }
-      this.page++;
-      this.loadingService.setLoading(false);
-      this.images = [...this.images, ...images];
-    });
+  getLikeList(): void {
+    const userId = localStorage.getItem('userId');
+    this.httpService.getList({userId, page: this.page})
+      .subscribe(images => {
+        this.pending = false;
+            if (images.length < 1) { return; }
+            this.page++;
+            this.loadingService.setLoading(false);
+            this.images = [...this.images, ...images];
+      });
+
   }
 
   fromChildFunc(event: any) {
@@ -151,8 +117,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     this.httpService.like({src: this.image.src, userId})
       .subscribe(res => {
-        this.loadingService.setLoading(false);
-        this.showDrawer();
+        console.log(res);
       });
   }
   unlink(src): void {

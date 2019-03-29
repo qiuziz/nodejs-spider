@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
           return;
         }
         localStorage.setItem('token', res.token);
+        localStorage.setItem('userId', res.userId);
         this.passwordError = '';
         this.usernameError = '';
       });

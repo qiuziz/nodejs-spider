@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './container/login/login.component';
 import { HomeComponent } from './container/home/home.component';
+import { LikeComponent } from './container/like/like.component';
 import { LookImageComponent } from './component/look-image/look-image.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +25,8 @@ registerLocaleData(zh);
     LookImageComponent,
     FooterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    LikeComponent
   ],
   imports: [
     BrowserModule,

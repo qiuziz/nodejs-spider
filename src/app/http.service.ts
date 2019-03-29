@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IMAGES } from '../assets/mock/image';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LoadingService } from 'src/app/loading.service';
 interface Image {
   id: number;
   src: string;
@@ -11,12 +11,23 @@ interface Image {
 @Injectable({
   providedIn: 'root'
 })
-export class ImageService {
-  private imagesUrl = '/jandan/images/';  // URL to web api
-  constructor(private http: HttpClient) { }
+export class HttpService {
+  constructor(private http: HttpClient, public loadingService: LoadingService) { }
 
   getImages(page: number = 1): Observable<Image[]> {
-    return this.http.get<Image[]>(`${this.imagesUrl}?page=${page}`);
+    this.loadingService.setLoading(true);
+    return this.http.get<Image[]>(`/jandan/images?page=${page}`);
+  }
+
+  like(data: object): Observable<void> {
+    this.loadingService.setLoading(true);
+    return this.http.post<void>(`/jandan/like`, data);
+  }
+
+
+  getList(data: object = {page: 1}): Observable<Image[]> {
+    this.loadingService.setLoading(true);
+    return this.http.post<Image[]>(`/jandan/like/list`, data);
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

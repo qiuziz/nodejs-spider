@@ -4,4 +4,10 @@ import { Injectable } from '@angular/core';
 export class LoadingService {
   isLoading = true;
   constructor() { }
+
+  setLoading(flag: boolean) {
+    setTimeout(() => {
+      this.isLoading = flag;
+    });
+  }
 }

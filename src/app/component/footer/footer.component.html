@@ -1,6 +1,6 @@
 <footer>
   <div class="footer">
-    <i class="mz-iconfont icon-meizi" (click)="go('home')"></i>
-    <i class="mz-iconfont icon-like" (click)="showLike()"></i>
+    <i class="mz-iconfont icon-meizi" [ngStyle]="{'color': currentPath === '/home' ? '#e60023' : ''}" (click)="go('home')"></i>
+    <i class="mz-iconfont icon-like" [ngStyle]="{'color': currentPath === '/like' ? '#e60023' : ''}" (click)="showLike()"></i>
   </div>
 </footer>
