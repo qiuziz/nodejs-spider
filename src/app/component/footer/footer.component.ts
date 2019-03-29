@@ -13,11 +13,17 @@ export class FooterComponent implements OnInit {
   constructor(public router: Router) { }
 
   ngOnInit() {
-
   }
 
   go(path: string) {
     this.router.navigate([path]);
+  }
+
+  showLike() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.go('login');
+    }
   }
 
 }

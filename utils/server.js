@@ -4,8 +4,10 @@
  */
 
 const http = require('http'),
-		express = require('express'),
-		jandan = require('./jandan.js');
+    express = require('express'),
+    // 引入json解析中间件
+    bodyParser = require('body-parser');
+
 
 const app = express();
 
@@ -14,7 +16,10 @@ const port = process.env.PORT || 4200;
 
 // jandan(pageUrl);
 
-app.use('/jandan/images', require('./jandan-api.js'));
+// 添加json解析
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use('/jandan/', require('./jandan-api.js'));
 
 http.createServer(app).listen(port);
 
