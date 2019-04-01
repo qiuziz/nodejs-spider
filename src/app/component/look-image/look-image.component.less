@@ -106,7 +106,7 @@ img { pointer-events: none; }
 @media only screen and (min-width: 320px) and (max-width: 767px)  {
 	.img-wrap {
     img {
-      height: 100%;
+      width: 100%;
     }
   }
 
@@ -127,20 +127,30 @@ img { pointer-events: none; }
   .mark {
     opacity: 1;
     position: fixed;
-    background: #000;
+    background: #FFFFFF;
     width: 100vw;
     height: 100vh;
     z-index: 99;
   }
 
+  &.center {
+    .img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
   .img {
     position: fixed;
     z-index: 100;
-    height: 90%;
+    height: 100%;
     overflow: auto;
-
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
     img {
-      height: 100%;
+      width: 100%;
     }
   }
 }

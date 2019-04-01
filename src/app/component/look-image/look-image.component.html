@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="img-wrap" *ngIf="showImg" (click)="lookImg()">
+<div class="img-wrap" [ngClass]="{'center': showCenter}" *ngIf="showImg" (click)="lookImg()">
   <div class="mark"></div>
   <div class="img"><img [src]="src" /></div>
 </div>

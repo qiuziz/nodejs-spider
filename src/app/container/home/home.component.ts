@@ -117,7 +117,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getImages(page: number): void {
-    console.log(111);
     this.httpService.getImages(page)
     .pipe(delay(0))
     .subscribe(images => {

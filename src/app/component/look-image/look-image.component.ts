@@ -15,55 +15,27 @@ export class LookImageComponent implements OnInit {
   @Output() fromChild = new EventEmitter();
   @ViewChild('imgBox') imgBox: any;
   showImg = false;
-  showOpt = false;
   loaded = false;
-  press = false;
+  showCenter = true;
   box: any;
   position: number;
-
-  private get hammerLib() {
-    return typeof window !== 'undefined' ? (window as any).Hammer : undefined;
-  }
 
   constructor(public ele: ElementRef, private loadingService: LoadingService) { }
 
   ngOnInit() {
     this.box = this.ele.nativeElement.querySelector('.box');
-    this.onPress();
-    // this.imgBox.nativeElement.addEventListener('contextmenu', function(e) {
-    //   e.preventDefault();
-    // });
-    // const hammer = new window.Hammer.Manager(this.imgBox.nativeElement);
-    // hammer.add(new window.Hammer.Press({time: 700, threshold: 5}));
-    // hammer.on('press', (e: any) => {
-    //   console.log(e);
-    //   e.preventDefault();
-    //   this.showOpt = true;
-    //   this.press = true;
-    // });
-  }
-
-
-  toggleOpt(e: any) {
-    e.preventDefault();
-    e.stopPropagation(); if (this.press) {
-      this.press = false;
-      return;
-    }
-    this.showOpt = false;
-  }
-
-  onPress() {
-    // fromEvent(this.imgBox.nativeElement, 'touchstart').pipe(delay(700))
-    // .subscribe((e) => {
-    //   alert(111);
-    // });
   }
 
   lookImg(): void {
     this.showImg = !this.showImg;
-
     if (this.showImg) {
+      setTimeout(() => {
+        const imgWrap = this.ele.nativeElement.querySelector('.img-wrap img');
+        const clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        if (imgWrap > clientHeight) {
+          this.showCenter = false;
+        }
+      }, 0);
       this.position = this.getScrollTop();
       document.body.style.overflow  = 'hidden';
       document.body.style.position  = 'fixed';
