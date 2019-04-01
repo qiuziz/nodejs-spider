@@ -2,13 +2,13 @@
  * @Author: qiuz
  * @Date: 2017-05-15 19:50:58
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-03-29 13:32:31
+ * @Last Modified time: 2019-03-29 17:52:37
  */
 
 const express = require("express"),
 		router = express(),
     connect = require("./db.js"),
-    ObjectId = require('mongodb').ObjectId;
+    ObjectID = require('mongodb').ObjectID;
 
 let lastPageId = null;
 
@@ -70,6 +70,10 @@ router.post("/like/list", (req, res) => {
   if (params.page === 1) {
     lastPageId = null;
   }
+  if (!params.userId) {
+    res.status(400).send('userId couldt null');
+    return;
+  }
   connect((err, db) => {
 		//连接到表 jandan
 		const collection = db.collection('jandan');
@@ -128,7 +132,54 @@ router.post("/login", (req, res) => {
         }
       });
       db.close();
-			res.send({errorMsg: '', token, userId: doc._id});
+			res.send({errorMsg: '', token, userId: doc._id, userName: doc.username, auth: doc.auth});
+    })
+	})
+});
+
+router.post("/delete", (req, res) => {
+	const { src, userId } = req.body;
+
+  if (!src) {
+    res.send({errorMsg: 'src is null'});
+    return;
+  }
+  if (!userId) {
+    res.send({errorMsg: 'userId couldt null'});
+    return;
+  }
+  connect((err, db) => {
+		//连接到表 user
+		const collection = db.collection('user');
+    //查询数据库
+    const query = {_id: ObjectID(userId)};
+		collection.findOne(query, function(err, doc){
+			if (err) {
+				console.log(err);
+			  db.close();
+        res.status(502).send('fetch error')
+				return;
+      }
+      if (!doc) {
+        res.send({errorMsg: 'user is null'});
+        return;
+      }
+      if (doc.auth !== 'admin') {
+        res.send({errorMsg: 'user do not have permission'});
+        return;
+      }
+       //删除
+       const jandanCol = db.collection('jandan');
+       jandanCol.deleteOne({src}, function(err, result) {
+        if(err)
+        {
+            console.log('Error:'+ err);
+            return;
+        }
+        db.close();
+      });
+      db.close();
+			res.send({errorMsg: ''});
     })
 	})
 })

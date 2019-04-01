@@ -4,5 +4,6 @@
     <p class="option-btn" (click)="download(src)">Save</p>
     <p class="option-btn" (click)="like(src)">Like</p>
     <p class="option-btn" (click)="unlink(src)">Unlike</p>
+    <p class="option-btn" *ngIf="showDel" (click)="delete(src)">Delete</p>
   </nz-drawer>
 </div>

@@ -29,4 +29,32 @@
 }
 
 
+::ng-deep .drawer {
+  border: 1px solid rgb(239, 239, 239);
+  touch-action: none;
+  transition-property: transform, opacity;
+  transition-timing-function: ease-out;
+  width: 100vw;
+  z-index: 1;
+
+  &.hidden {
+    display: none;
+  }
+
+  .ant-drawer-title {
+    color: #333;
+    font-size: 21px;
+  }
+ .option-btn {
+    color: #333;
+    font-size: 18px;
+    hyphens: auto;
+    word-wrap: break-word;
+    font-weight: 700;
+    letter-spacing: -.4px;
+  }
+}
+
+
+
 

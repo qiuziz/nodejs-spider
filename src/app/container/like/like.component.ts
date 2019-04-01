@@ -80,13 +80,17 @@ export class LikeComponent implements OnInit, OnDestroy {
 
   getLikeList(): void {
     const userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.router.navigate(['login']);
+      return;
+    }
     this.httpService.getList({userId, page: this.page})
       .subscribe(images => {
         this.pending = false;
-            if (images.length < 1) { return; }
-            this.page++;
-            this.loadingService.setLoading(false);
-            this.images = [...this.images, ...images];
+        if (images.length < 1) { return; }
+        this.page++;
+        this.loadingService.setLoading(false);
+        this.images = [...this.images, ...images];
       });
 
   }

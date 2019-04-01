@@ -16,18 +16,42 @@ export class HttpService {
 
   getImages(page: number = 1): Observable<Image[]> {
     this.loadingService.setLoading(true);
-    return this.http.get<Image[]>(`/jandan/images?page=${page}`);
+    return this.http.get<Image[]>(`/jandan/images?page=${page}`).pipe(
+      catchError(() => {
+        this.loadingService.setLoading(false);
+        return of([]);
+      })
+    );
   }
 
-  like(data: object): Observable<void> {
+  like(data: object): Observable<{}> {
     this.loadingService.setLoading(true);
-    return this.http.post<void>(`/jandan/like`, data);
+    return this.http.post<{}>(`/jandan/like`, data).pipe(
+      catchError(() => {
+        this.loadingService.setLoading(false);
+        return of({});
+      })
+    );
   }
 
 
   getList(data: object = {page: 1}): Observable<Image[]> {
     this.loadingService.setLoading(true);
-    return this.http.post<Image[]>(`/jandan/like/list`, data);
+    return this.http.post<Image[]>(`/jandan/like/list`, data).pipe(
+      catchError(() => {
+        this.loadingService.setLoading(false);
+        return of([]);
+      })
+    );
+  }
+  deleteImg(data: object): Observable<{}> {
+    this.loadingService.setLoading(true);
+    return this.http.post<{}>(`/jandan/delete`, data).pipe(
+      catchError(() => {
+        this.loadingService.setLoading(false);
+        return of({});
+      })
+    );
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

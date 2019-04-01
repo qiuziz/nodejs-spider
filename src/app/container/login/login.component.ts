@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
 import { LoginService } from './login.service';
+import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/loading.service';
 
 
 @Component({
@@ -12,7 +14,10 @@ export class LoginComponent implements OnInit {
   password: string;
   usernameError: string;
   passwordError: string;
-  constructor(private loginService: LoginService) { }
+  constructor(
+    private loginService: LoginService,
+    public loadingService: LoadingService,
+    public router: Router) { }
 
   ngOnInit() {
 
@@ -41,8 +46,12 @@ export class LoginComponent implements OnInit {
         }
         localStorage.setItem('token', res.token);
         localStorage.setItem('userId', res.userId);
+        localStorage.setItem('userName', res.userName);
+        localStorage.setItem('auth', res.auth);
         this.passwordError = '';
         this.usernameError = '';
+        this.router.navigate(['like']);
+        this.loadingService.setLoading(false);
       });
   }
 

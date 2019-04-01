@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 interface Image {
   id: number;
   src: string;
+  index?: number;
 }
 
 function funDownload(src: string, filename = '') {
@@ -71,6 +72,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   boxList: any[] = [];
   loading = true;
   visible = false;
+  showDel = localStorage.getItem('auth');
   src = '';
   scrollEvent: any;
   resizeEvent: any;
@@ -98,18 +100,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.resizeEvent = fromEvent(window, 'resize').pipe(debounceTime(500))
       .subscribe(() => {
-        this.boxArr = [];
-        this.boxHeight = 0;
-        const boxs = this.ele.nativeElement.querySelectorAll('.box');
-        boxs.forEach((box, index) => {
-          this.adjustBoxHeight(index);
-        });
+        this.reAdjustBox();
       });
   }
 
   ngOnDestroy(): void {
     this.scrollEvent.unsubscribe();
     this.resizeEvent.unsubscribe();
+  }
+
+  reAdjustBox() {
+    this.boxArr = [];
+    this.boxHeight = 0;
+    const boxs = this.ele.nativeElement.querySelectorAll('.box');
+    boxs.forEach((box, index) => {
+      this.adjustBoxHeight(index);
+    });
   }
 
   getImages(page: number): void {
@@ -127,7 +133,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   fromChildFunc(event: any) {
     if (event.option) {
-      this.image = this.images[event.index];
+      this.image = {...this.images[event.index], index: event.index};
       this.showDrawer();
       return;
     }
@@ -157,6 +163,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   unlink(src): void {
     console.log(src);
+  }
+
+  delete() {
+    const userId = localStorage.getItem('userId');
+    this.httpService.deleteImg({src: this.image.src, userId})
+    .subscribe(res => {
+      this.loadingService.setLoading(false);
+      this.images.splice(this.image.index, 1);
+      this.showDrawer();
+    });
   }
 
 
