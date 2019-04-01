@@ -44,6 +44,7 @@ export class LikeComponent implements OnInit, OnDestroy {
   scrollEvent: any;
   resizeEvent: any;
   loadMore = true;
+  boxTop: any = {};
   constructor(
     public ele: ElementRef,
     private httpService: HttpService,
@@ -163,7 +164,7 @@ export class LikeComponent implements OnInit, OnDestroy {
 
       if (index < columns) {
           // 2. 确定第一行
-          this.boxList[index].style.top = 50 + 'px';
+          this.boxList[index].style.top = gap + 'px';
           this.boxList[index].style.left = (itemWidth + gap) * index + initLeft + 'px';
           this.boxArr.push(this.boxList[index].offsetHeight + this.boxList[index].offsetTop);
       } else {
@@ -173,6 +174,8 @@ export class LikeComponent implements OnInit, OnDestroy {
           // 4- 设置下一行的第一个盒子位置
           // top值就是最小列的高度 + gap
           this.boxList[index].style.top = this.boxArr[minIndex] + gap + 'px';
+          this.boxTop.top = this.boxArr[minIndex] + gap;
+          this.boxTop.index = index;
           // left值就是最小列距离左边的距离
           this.boxList[index].style.left = this.boxList[minIndex].offsetLeft + 'px';
 
@@ -182,6 +185,9 @@ export class LikeComponent implements OnInit, OnDestroy {
       }
 
       if (index === this.images.length - 1) {
+        // const maxTop = Math.max(...this.boxTop), maxIndex = this.boxTop.indexOf(maxTop);
+        console.log(this.boxTop);
+        this.boxList[this.boxTop.index].style.paddingBottom = '50px';
         if (this.page <= 2) { this.loading = false; }
         this.loadingService.setLoading(false);
         document.body.style.position = 'static';

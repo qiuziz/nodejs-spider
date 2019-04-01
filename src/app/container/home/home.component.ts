@@ -189,7 +189,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
       if (index < columns) {
           // 2. 确定第一行
-          this.boxList[index].style.top = 50 + 'px';
+          this.boxList[index].style.top = gap + 'px';
           this.boxList[index].style.left = (itemWidth + gap) * index + initLeft + 'px';
           this.boxArr.push(this.boxList[index].offsetHeight + this.boxList[index].offsetTop);
       } else {
