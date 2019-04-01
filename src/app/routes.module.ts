@@ -6,10 +6,6 @@ import { HomeComponent } from './container/home/home.component';
 import { LikeComponent } from './container/like/like.component';
 const routes: Routes = [
   {
-    path: '',
-    component: AppComponent,
-  },
-  {
     path: 'home',
     component: HomeComponent,
   },
@@ -21,11 +17,20 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: HomeComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class RoutesModule { }

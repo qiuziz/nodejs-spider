@@ -84,9 +84,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if (this.getScrollTop() === 0) {
-      this.getImages(this.page);
-    }
+    this.getImages(this.page);
     this.scrollEvent = fromEvent(window, 'scroll').pipe(debounceTime(500))
       .subscribe(() => {
         console.log(this.getScrollTop() >= (this.boxList[this.boxList.length - 1].offsetTop + 50));

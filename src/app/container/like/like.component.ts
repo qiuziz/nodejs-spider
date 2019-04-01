@@ -51,9 +51,7 @@ export class LikeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    if (this.getScrollTop() === 0) {
-      this.getLikeList();
-    }
+    this.getLikeList();
     this.scrollEvent = fromEvent(window, 'scroll').pipe(throttleTime(500))
       .subscribe(() => {
         if (this.pending) { return; }
