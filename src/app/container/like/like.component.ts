@@ -86,9 +86,9 @@ export class LikeComponent implements OnInit, OnDestroy {
     this.httpService.getList({userId, page: this.page})
       .subscribe(images => {
         this.pending = false;
+        this.loadingService.setLoading(false);
         if (images.length < 1) { return; }
         this.page++;
-        this.loadingService.setLoading(false);
         this.images = [...this.images, ...images];
       });
 
