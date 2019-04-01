@@ -2,7 +2,7 @@
  * @Author: qiuz
  * @Date: 2017-05-15 19:50:58
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-03-29 17:52:37
+ * @Last Modified time: 2019-04-01 10:04:52
  */
 
 const express = require("express"),
@@ -52,6 +52,35 @@ router.post("/like", (req, res) => {
        //插入数据库
        collection.updateOne({src: params.src}, {
         $set: {...doc, like: params.userId }
+        }, function(err, result) {
+        if(err)
+        {
+            console.log('Error:'+ err);
+            return;
+        }
+      });
+      db.close();
+			res.send(doc);
+    })
+	})
+});
+
+router.post("/unlike", (req, res) => {
+  const params = req.body;
+  connect((err, db) => {
+		//连接到表 jandan
+		const collection = db.collection('jandan');
+    //查询数据库
+		collection.findOne({src: params.src, userId: params.userId}, function(err,doc) {
+			if (err) {
+				console.log(err);
+			  db.close();
+        res.status(502).send('fetch error')
+				return;
+      }
+       //插入数据库
+       collection.updateOne({src: params.src}, {
+        $set: {...doc, like: '' }
         }, function(err, result) {
         if(err)
         {

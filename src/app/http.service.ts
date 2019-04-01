@@ -34,6 +34,15 @@ export class HttpService {
     );
   }
 
+  unlike(data: object): Observable<{}> {
+    this.loadingService.setLoading(true);
+    return this.http.post<{}>(`/jandan/unlike`, data).pipe(
+      catchError(() => {
+        this.loadingService.setLoading(false);
+        return of({});
+      })
+    );
+  }
 
   getList(data: object = {page: 1}): Observable<Image[]> {
     this.loadingService.setLoading(true);
@@ -44,6 +53,7 @@ export class HttpService {
       })
     );
   }
+
   deleteImg(data: object): Observable<{}> {
     this.loadingService.setLoading(true);
     return this.http.post<{}>(`/jandan/delete`, data).pipe(

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 interface Image {
   id: number;
   src: string;
+  index?: number;
 }
 
 function funDownload(src: string, filename = '') {
@@ -97,7 +98,7 @@ export class LikeComponent implements OnInit, OnDestroy {
 
   fromChildFunc(event: any) {
     if (event.option) {
-      this.image = this.images[event.index];
+      this.image = {...this.images[event.index], index: event.index};
       this.showDrawer();
       return;
     }
@@ -122,10 +123,22 @@ export class LikeComponent implements OnInit, OnDestroy {
     this.httpService.like({src: this.image.src, userId})
       .subscribe(res => {
         console.log(res);
+        this.loadingService.setLoading(false);
       });
   }
-  unlink(src): void {
-    console.log(src);
+  unlink(): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      this.router.navigate(['login']);
+      return;
+    }
+    this.httpService.unlike({src: this.image.src, userId})
+      .subscribe(res => {
+        console.log(res, this.image.index);
+        this.images.splice(this.image.index);
+        this.showDrawer();
+        this.loadingService.setLoading(false);
+      });
   }
 
 

@@ -3,7 +3,6 @@
   <nz-drawer [nzWrapClassName]=" 'drawer ' + (!visible ? 'hidden' : '')" [nzVisible]="visible" (nzOnClose)="showDrawer()" nzPlacement="bottom" nzTitle="Options">
     <p class="option-btn" (click)="download(src)">Save</p>
     <p class="option-btn" (click)="like(src)">Like</p>
-    <p class="option-btn" (click)="unlink(src)">Unlike</p>
     <p class="option-btn" *ngIf="showDel" (click)="delete(src)">Delete</p>
   </nz-drawer>
 </div>
