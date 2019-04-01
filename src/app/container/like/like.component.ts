@@ -43,6 +43,7 @@ export class LikeComponent implements OnInit, OnDestroy {
   src = '';
   scrollEvent: any;
   resizeEvent: any;
+  loadMore = true;
   constructor(
     public ele: ElementRef,
     private httpService: HttpService,
@@ -83,11 +84,18 @@ export class LikeComponent implements OnInit, OnDestroy {
       this.router.navigate(['login']);
       return;
     }
+    if (!this.loadMore) {
+      return;
+    }
     this.httpService.getList({userId, page: this.page})
       .subscribe(images => {
         this.pending = false;
         this.loadingService.setLoading(false);
-        if (images.length < 1) { return; }
+        if (images.length < 10) {
+          this.loadMore = false;
+        } else {
+          this.loadMore = true;
+        }
         this.page++;
         this.images = [...this.images, ...images];
       });
