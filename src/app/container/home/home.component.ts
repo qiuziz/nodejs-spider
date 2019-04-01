@@ -63,7 +63,7 @@ const IMAGES = [
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  images: Image[] = IMAGES;
+  images: Image[] = [];
   image: Image;
   boxHeight: number;
   boxArr: any[] = [];
