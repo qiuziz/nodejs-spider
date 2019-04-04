@@ -9,7 +9,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.c3b984b36befb96c14aa.js",
+        "/main.2cee0bed763650e2cbd2.js",
         "/polyfills.7a0e6866a34e280f48e7.js",
         "/runtime.a66f828dca56eeb90e02.js",
         "/styles.1b022e8bdacffe23e055.css"
@@ -1544,8 +1544,8 @@
     "/assets/twotone/wallet.svg": "450239fff59398e7314a5d7b1201a0ce1699ec9f",
     "/assets/twotone/warning.svg": "14f1c563b47eed8f263b1b9b9b17fa6a8035d278",
     "/favicon.ico": "a5b9f02fe8428bae748f8d026ab1cc1732c38888",
-    "/index.html": "da9c6db37bd8d29f0c779b0313525b2ca6d289c4",
-    "/main.c3b984b36befb96c14aa.js": "010d07a2940e06719548eb06979aefa946ec1c69",
+    "/index.html": "edb1a34b63eefed58e7c400864bf4b006db6cecf",
+    "/main.2cee0bed763650e2cbd2.js": "8628b5937bc36bea99c3cf9625cfcd05ad909af9",
     "/polyfills.7a0e6866a34e280f48e7.js": "9f0b8341c0a0caec1581da2f255eb5dbb8e12303",
     "/runtime.a66f828dca56eeb90e02.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
     "/styles.1b022e8bdacffe23e055.css": "0a5a9974b0a32f7df2f1da1c905e2897a5b8107d"

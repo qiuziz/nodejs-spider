@@ -18,6 +18,7 @@ function funDownload(src: string, filename = '') {
   eleLink.style.display = 'none';
   // // 字符内容转变成blob地址
   eleLink.href = src;
+  eleLink.target = '_blank';
   // // 触发点击
   document.body.appendChild(eleLink);
   eleLink.click();
@@ -142,9 +143,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.adjustBoxHeight(this.boxList.length - 1);
   }
 
-  download(src): void {
-    console.log(src);
-    funDownload(src);
+  download(): void {
+    funDownload(this.image.src);
   }
   like(): void {
     const userId = localStorage.getItem('userId');
