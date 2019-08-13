@@ -1,8 +1,0 @@
-<div class="home">
-  <app-look-image #tref *ngFor="let image of images; index as i" [index]="i" [src]="image.src" (fromChild)="fromChildFunc($event, index)"></app-look-image>
-  <nz-drawer [nzWrapClassName]=" 'drawer ' + (!visible ? 'hidden' : '')" [nzVisible]="visible" (nzOnClose)="showDrawer()" nzPlacement="bottom" nzTitle="Options">
-    <p class="option-btn" (click)="download()">Save</p>
-    <p class="option-btn" (click)="unlink()">Unlike</p>
-  </nz-drawer>
-  <nz-spin class="loading local" [nzSize]="'large'" *ngIf="!loading && !pending && loadingService.isLoading"></nz-spin>
-</div>
