@@ -3,7 +3,7 @@
  * @Github: <https://github.com/qiuziz>
  * @Date: 2019-08-13 18:01:52
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-08-13 18:12:28
+ * @Last Modified time: 2019-08-13 18:16:29
  */
 
 import Taro, { Component, Config } from "@tarojs/taro";
@@ -12,7 +12,7 @@ import LOGO from '../../assets/images/logo.png';
 
 export class Login extends Component {
   state = {
-    context: {}
+    openId: ""
   }
 
   config: Config = {
@@ -33,13 +33,21 @@ export class Login extends Component {
     Taro.cloud.callFunction({
       name: "login",
       data: {}
-    }).then(res => {
+    }).then((res: any) => {
       console.log(res);
+      const { data = {} } = res.result;
+      const { openId = "" } = data;
       this.setState({
-        context: res.result
+        openId
       })
     });
+  }
 
+  getUserInfo = (obj: any) => {
+    console.log(12, obj);
+    if(obj.detail.userInfo){
+      this.getLogin();
+    }
   }
 
   render() {
@@ -48,7 +56,7 @@ export class Login extends Component {
         <View className="logo">
           <Image src={LOGO} mode="widthFix"></Image>
         </View>
-        <Button className="btn" onClick={this.getLogin}>登录</Button>
+        <Button className="btn" open-type="getUserInfo" onGetUserInfo={this.getUserInfo}>登录</Button>
       </View>
     )
   }

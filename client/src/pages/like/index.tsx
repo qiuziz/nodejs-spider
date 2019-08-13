@@ -87,19 +87,10 @@ export default class Index extends Component<any, any> {
     this.getImages(page);
   }
 
-  getUserInfo = (obj) => {
-    console.log(12, obj);
-    if(obj.detail.rawData){
-      Taro.setStorageSync('userAwaterInfo', JSON.parse(obj.detail.rawData));
-      const { path, ...params} = this.$router.params;
-    }
-  }
-
   render () {
     const { images } = this.state;
     return (
          <ScrollView className='like' scrollY={true} onScrollToLower={this.onBottom}>
-        <Button open-type="getUserInfo" onGetUserInfo={this.getUserInfo} className="submit">授权</Button>
         {
           images.map((img: any) => {
             return <ImgWrap src={img.src} key={img._id}></ImgWrap>
