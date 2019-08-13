@@ -21,7 +21,7 @@ class App extends Component {
   config: Config = {
     pages: [
       'pages/home/index',
-      'pages/user/index'
+      'pages/like/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -39,7 +39,7 @@ class App extends Component {
           selectedIconPath: "./assets/images/tabbar-icon/home-active.png"
         },
         {
-          pagePath: "pages/user/index",
+          pagePath: "pages/like/index",
           text: "",
           iconPath: "./assets/images/tabbar-icon/user.png",
           selectedIconPath: "./assets/images/tabbar-icon/user-active.png"

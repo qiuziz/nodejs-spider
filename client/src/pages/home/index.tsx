@@ -1,8 +1,8 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Image, ScrollView } from '@tarojs/components'
+import { ScrollView } from '@tarojs/components'
 import './index.less'
 
-import { Login, ImgWrap } from '../../components';
+import { ImgWrap } from '../../components';
 
 export default class Index extends Component<any, any> {
 
@@ -14,7 +14,7 @@ export default class Index extends Component<any, any> {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: Config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '妹子图'
   }
   boxHeight = 0;
   boxArr = [];
@@ -68,7 +68,7 @@ export default class Index extends Component<any, any> {
   render () {
     const { images } = this.state;
     return (
-         <ScrollView className='index' scrollY={true} onScrollToLower={this.onBottom}>
+         <ScrollView className='home' scrollY={true} onScrollToLower={this.onBottom}>
         {
           images.map((img: any) => {
             return <ImgWrap src={img.src} key={img._id}></ImgWrap>
