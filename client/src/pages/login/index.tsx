@@ -3,11 +3,11 @@
  * @Github: <https://github.com/qiuziz>
  * @Date: 2019-08-13 18:01:52
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-08-13 18:16:29
+ * @Last Modified time: 2019-08-14 17:57:31
  */
 
 import Taro, { Component, Config } from "@tarojs/taro";
-import { View, Text, Button, Image } from "@tarojs/components";
+import { View, Button, Image } from "@tarojs/components";
 import LOGO from '../../assets/images/logo.png';
 
 export class Login extends Component {

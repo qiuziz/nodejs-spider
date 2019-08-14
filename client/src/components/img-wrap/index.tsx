@@ -3,12 +3,11 @@
  * @Github: <https://github.com/qiuziz>
  * @Date: 2019-08-09 17:13:57
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-08-13 14:09:48
+ * @Last Modified time: 2019-08-14 17:57:06
  */
 
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text } from '@tarojs/components';
-import { AtIcon } from 'taro-ui';
+import { View, Image } from '@tarojs/components';
 import './index.less';
 
 interface ImgWrapProps {
@@ -53,6 +52,7 @@ export class ImgWrap extends Component<ImgWrapProps, any> {
   }
 
   onLoad = () => {
+    this.setState({loaded: true});
     this.props.onLoad();
   }
 

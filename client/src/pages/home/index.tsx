@@ -22,7 +22,7 @@ export default class Index extends Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      images: [{src: ''}],
+      images: [{ src: '' }],
 
       page: 0,
       boxList: [],
@@ -30,23 +30,23 @@ export default class Index extends Component<any, any> {
     }
   }
 
-  componentWillMount () { }
+  componentWillMount() { }
 
-  componentDidMount () {
-     this.getImages(0);
+  componentDidMount() {
+    this.getImages(0);
   }
 
-  componentWillUnmount () { }
+  componentWillUnmount() { }
 
-  componentDidShow () { }
+  componentDidShow() { }
 
-  componentDidHide () { }
+  componentDidHide() { }
 
 
   getImages = (page: number) => {
     Taro.cloud.callFunction({
       name: "get-img-list",
-      data: {page}
+      data: { page }
     }).then((res: any) => {
       const { data } = res.result;
       const { images } = this.state;
@@ -65,16 +65,19 @@ export default class Index extends Component<any, any> {
     this.getImages(page);
   }
 
-  render () {
+  render() {
     const { images } = this.state;
     return (
-         <ScrollView className='home' scrollY={true} onScrollToLower={this.onBottom}>
+      <ScrollView className='home' scrollY={true} onScrollToLower={this.onBottom}>
+        {/* <View className="refresh-btn">
+            <AtIcon prefixClass="mz" value="refresh" color="#8a8a8a" size="20"></AtIcon>
+          </View> */}
         {
           images.map((img: any) => {
             return <ImgWrap src={img.src} key={img._id}></ImgWrap>
           })
         }
-        </ScrollView>
+      </ScrollView>
     )
   }
 }

@@ -1,5 +1,5 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Image, ScrollView, Button } from '@tarojs/components'
+import { ScrollView } from '@tarojs/components'
 import './index.less'
 
 import { ImgWrap } from '../../components';
@@ -16,42 +16,19 @@ export default class Index extends Component<any, any> {
   config: Config = {
     navigationBarTitleText: '收藏'
   }
-  boxHeight = 0;
-  boxArr = [];
   pending = false;
   constructor(props: any) {
     super(props);
     this.state = {
-      images: [{src: ''}],
+      images: [{ src: '' }],
       page: 1,
       loadMore: true
     }
   }
 
-  componentWillMount () { }
-
-  componentDidMount () {
-     this.getImages(0);
-     this.getLogin();
+  componentDidMount() {
+    this.getImages(0);
   }
-  getLogin = () => {
-    Taro.cloud.callFunction({
-      name: "login",
-      data: {}
-    }).then(res => {
-      console.log(res);
-      this.setState({
-        context: res.result
-      })
-    });
-
-  }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
 
   getImages = (page: number) => {
     Taro.cloud.callFunction({
@@ -87,16 +64,26 @@ export default class Index extends Component<any, any> {
     this.getImages(page);
   }
 
-  render () {
+  refresh = () => {
+    this.setState({
+      loadMore: true
+    }, () => this.getImages(0));
+  }
+
+  render() {
     const { images } = this.state;
     return (
-         <ScrollView className='like' scrollY={true} onScrollToLower={this.onBottom}>
+      <ScrollView
+        className='like'
+        scrollY={true}
+        lowerThreshold={100}
+        onScrollToLower={this.onBottom}>
         {
           images.map((img: any) => {
             return <ImgWrap src={img.src} key={img._id}></ImgWrap>
           })
         }
-        </ScrollView>
+      </ScrollView>
     )
   }
 }
