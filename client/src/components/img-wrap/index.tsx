@@ -3,7 +3,7 @@
  * @Github: <https://github.com/qiuziz>
  * @Date: 2019-08-09 17:13:57
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-08-15 16:54:24
+ * @Last Modified time: 2019-08-15 17:09:51
  */
 
 import Taro, { Component } from '@tarojs/taro';
@@ -36,6 +36,7 @@ export class ImgWrap extends Component<ImgWrapProps, any> {
 
   onError = () => {
     this.setState({error: true});
+    this.delete(false);
     this.props.onError();
   }
 
@@ -72,11 +73,11 @@ export class ImgWrap extends Component<ImgWrapProps, any> {
     }).catch(err => console.log(err));
   }
 
-  delete = () => {
+  delete = (toast: boolean = true) => () => {
     const { src } = this.props;
     CloudResouce.deleteImg({imgUrl: src}).then(res => {
       console.log(res);
-      Taro.showToast({
+      toast && Taro.showToast({
         title: '删除成功',
         icon: 'none'
       });
@@ -127,7 +128,7 @@ export class ImgWrap extends Component<ImgWrapProps, any> {
               ? <AtActionSheetItem onClick={this.unlike}>
                   移除
                 </AtActionSheetItem>
-              : <AtActionSheetItem onClick={this.delete}>
+              : <AtActionSheetItem onClick={this.delete()}>
                   删除
                 </AtActionSheetItem>
             }
