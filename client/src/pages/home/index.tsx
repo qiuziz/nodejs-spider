@@ -1,8 +1,14 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import { ScrollView } from '@tarojs/components'
-import './index.less'
+/*
+ * @Author: qiuz
+ * @Github: <https://github.com/qiuziz>
+ * @Date: 2019-08-15 13:44:47
+ * @Last Modified by: qiuz
+ * @Last Modified time: 2019-08-15 13:55:30
+ */
 
-import { ImgWrap } from '../../components';
+import Taro, { Component, Config } from '@tarojs/taro'
+import './index.less'
+import { ImgList } from '../img-list';
 
 export default class Index extends Component<any, any> {
 
@@ -16,68 +22,19 @@ export default class Index extends Component<any, any> {
   config: Config = {
     navigationBarTitleText: '妹子图'
   }
-  boxHeight = 0;
-  boxArr = [];
-  pending = false;
   constructor(props: any) {
     super(props);
     this.state = {
-      images: [{ src: '' }],
-
-      page: 0,
-      boxList: [],
-      loading: true,
     }
   }
 
-  componentWillMount() { }
-
   componentDidMount() {
-    this.getImages(0);
   }
 
-  componentWillUnmount() { }
-
-  componentDidShow() { }
-
-  componentDidHide() { }
-
-
-  getImages = (page: number) => {
-    Taro.cloud.callFunction({
-      name: "get-img-list",
-      data: { page }
-    }).then((res: any) => {
-      const { data } = res.result;
-      const { images } = this.state;
-      this.pending = false;
-      if (images.length < 1) { return; }
-      this.setState({
-        images: page > 0 ? [...images, ...data] : data,
-        page: page + 1
-      });
-    });
-  }
-
-  onBottom = () => {
-    const { page } = this.state;
-    console.log(page);
-    this.getImages(page);
-  }
 
   render() {
-    const { images } = this.state;
     return (
-      <ScrollView className='home' scrollY={true} onScrollToLower={this.onBottom}>
-        {/* <View className="refresh-btn">
-            <AtIcon prefixClass="mz" value="refresh" color="#8a8a8a" size="20"></AtIcon>
-          </View> */}
-        {
-          images.map((img: any) => {
-            return <ImgWrap src={img.src} key={img._id}></ImgWrap>
-          })
-        }
-      </ScrollView>
+      <ImgList tag="home" />
     )
   }
 }

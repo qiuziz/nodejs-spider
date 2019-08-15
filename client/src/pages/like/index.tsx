@@ -1,10 +1,16 @@
-import Taro, { Component, Config } from '@tarojs/taro'
-import { ScrollView } from '@tarojs/components'
-import './index.less'
+/*
+ * @Author: qiuz
+ * @Github: <https://github.com/qiuziz>
+ * @Date: 2019-08-15 13:54:06
+ * @Last Modified by: qiuz
+ * @Last Modified time: 2019-08-15 13:55:13
+ */
 
-import { ImgWrap } from '../../components';
+import Taro, { Component, Config } from '@tarojs/taro';
+import './index.less';
+import { ImgList } from '../img-list';
 
-export default class Index extends Component<any, any> {
+export class Like extends Component<any, any> {
 
   /**
    * 指定config的类型声明为: Taro.Config
@@ -16,74 +22,18 @@ export default class Index extends Component<any, any> {
   config: Config = {
     navigationBarTitleText: '收藏'
   }
-  pending = false;
   constructor(props: any) {
     super(props);
     this.state = {
-      images: [{ src: '' }],
-      page: 1,
-      loadMore: true
     }
   }
 
   componentDidMount() {
-    this.getImages(0);
-  }
-
-  getImages = (page: number) => {
-    Taro.cloud.callFunction({
-      name: "get-img-list",
-      data: {
-        page,
-        where: {
-          like: '5c9c7eff0daa4339bca0b709'
-        }
-      }
-    }).then((res: any) => {
-      console.log(res);
-      const { data } = res.result;
-      const { images } = this.state;
-      this.pending = false;
-      if (data.length < 1) {
-        this.setState({
-          loadMore: false
-        })
-        return;
-      }
-      this.setState({
-        images: page > 0 ? [...images, ...data] : data,
-        page: page + 1
-      })
-    });
-  }
-
-  onBottom = () => {
-    const { page, loadMore } = this.state;
-    if (!loadMore) return;
-    console.log(page);
-    this.getImages(page);
-  }
-
-  refresh = () => {
-    this.setState({
-      loadMore: true
-    }, () => this.getImages(0));
   }
 
   render() {
-    const { images } = this.state;
     return (
-      <ScrollView
-        className='like'
-        scrollY={true}
-        lowerThreshold={100}
-        onScrollToLower={this.onBottom}>
-        {
-          images.map((img: any) => {
-            return <ImgWrap src={img.src} key={img._id}></ImgWrap>
-          })
-        }
-      </ScrollView>
+      <ImgList tag="like" />
     )
   }
 }
