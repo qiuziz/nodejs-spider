@@ -46,7 +46,8 @@ export class ImgList extends Component<Props, any> {
 
 
   getImages = (page: number) => {
-
+    if (this.pending) return;
+    this.pending = true;
     const { tag } = this.props;
     CloudResouce[tag === 'like' ? 'getLikeImgs' : 'getImgs']({page}).then((res: any) => {
       const { data } = res.result;
