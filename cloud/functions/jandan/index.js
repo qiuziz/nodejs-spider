@@ -3,7 +3,7 @@
  * @Github: <https://github.com/qiuziz>
  * @Date: 2019-08-09 15:29:46
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-08-16 15:04:53
+ * @Last Modified time: 2019-08-16 15:21:26
  */
 
 const cloud = require('wx-server-sdk');
@@ -41,7 +41,11 @@ async function jandan(url) {
 	const $ = cheerio.load(red.body);
 	const curPageUrls = $('.current-comment-page');
 	const currentPage = curPageUrls.eq(0).text().split('[')[1].split(']')[0];
-	await db.collection('url_page').where({_id: '1e7c918c-998d-43d7-8cc0-1b58da048c24'}).update({data: {currentPage: parseInt(currentPage)}});
+	await db.collection('url_page')
+					.where({_id: '1e7c918c-998d-43d7-8cc0-1b58da048c24'})
+					.update({data: {
+						currentPage: currentPage > 1 parseInt(currentPage) : -1
+					}});
 
 	const imagesLink = $('.view_img_link');
 	imagesLink.attr('href', function (index, value) {
@@ -70,5 +74,6 @@ exports.main = async (event, context) => {
 	const res = await db.collection('url_page').get();
 	const { data = [] } = res;
 	const currentPage = data[0] ? data[0].currentPage : 0;
+	if (currentPage < 0) return {errmsg: '今日已完成，明日继续'};
 	await jandan(currentPage > 1 ? `${pageUrl}/page-${currentPage - 1}` : pageUrl);
 }
