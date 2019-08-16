@@ -3,7 +3,7 @@
     {
       "name": "jandan",
       "type": "timer",
-      "config": "0 0 2 * * FRI *"
+      "config": "0 */10 0-6 * * SAT *"
     }
   ]
 }

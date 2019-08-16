@@ -3,29 +3,28 @@
  * @Github: <https://github.com/qiuziz>
  * @Date: 2019-08-09 15:29:46
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-08-14 16:24:50
+ * @Last Modified time: 2019-08-16 15:04:53
  */
 
 const cloud = require('wx-server-sdk');
-const phantom = require('phantom');
 const cheerio = require('cheerio');
-const sleep = require('system-sleep');
+const got = require('got');
 
 cloud.init();
 const pageUrl = 'http://jandan.net/ooxx';
 const imagesArray = [];
 
-Date.prototype.format = function (format) {
+function dateFormat(date, format) {
 	let args = {
-		'M+': this.getMonth() + 1,
-		'd+': this.getDate(),
-		'h+': this.getHours(),
-		'm+': this.getMinutes(),
-		's+': this.getSeconds(),
-		'q+': Math.floor((this.getMonth() + 3) / 3), // quarter
-		'S': this.getMilliseconds()
+		'M+': date.getMonth() + 1,
+		'd+': date.getDate(),
+		'h+': date.getHours(),
+		'm+': date.getMinutes(),
+		's+': date.getSeconds(),
+		'q+': Math.floor((date.getMonth() + 3) / 3), // quarter
+		'S': date.getMilliseconds()
 	};
-	if (/(y+)/.test(format)) { format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length)); }
+	if (/(y+)/.test(format)) { format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length)); }
 	for (let i in args) {
 		let n = args[i];
 		if (new RegExp('(' + i + ')').test(format)) { format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? n : ('00' + n).substr(('' + n).length)); }
@@ -33,61 +32,43 @@ Date.prototype.format = function (format) {
 	return format;
 };
 
-function jandan(url, db, page, ph) {
-	page.open(url).then(function (status) {
-		if (status !== 'success') {
-			console.log(status);
-			return;
-		}
-		page.property('content').then(function (content) {
-			const $ = cheerio.load(content);
-			const curPageUrls = $('.current-comment-page');
-			currentPage = curPageUrls.eq(0).text().split('[')[1].split(']')[0];
 
-			const imagesLink = $('.view_img_link');
-			imagesLink.attr('href', function (index, value) {
-				value && imagesArray.push(`https:${value}`);
-			});
-			console.log(currentPage);
-			imagesArray.forEach(async img => {
-				const res = await db.collection('photo').where({ src: img }).count();
-				console.log(res);
-				if (res && res.total && res.total > 0) {
-					console.log(`${img}已存在`);
-				} else {
-					await db.collection('photo').add({
-						data: {
-							src: img, createTime: new Date().format("yyyy-MM-dd hh:mm:ss")
-						}
-					});
-				}
-			});
-			if (currentPage - 1 > 0) {
-				sleep(200000);
-				const currentUrl = pageUrl + '/page-' + (currentPage - 1);
-				jandan(currentUrl, db, page, ph);
-				return;
-			}
-			page.close();
-			ph.exit();
-		})
-	})
-}
-
-exports.main = async (event, context) => {
+async function jandan(url) {
+	console.log(url);
 	// 1. 获取数据库引用
 	const db = cloud.database();
-	phantom.create().then(function (ph) {
-		ph.createPage().then(function (page) {
-			jandan(pageUrl, db, page, ph);
-		})
-			.catch(error => {
-				console.log(error);
-				page.close();
+	const red = await got(url);
+	const $ = cheerio.load(red.body);
+	const curPageUrls = $('.current-comment-page');
+	const currentPage = curPageUrls.eq(0).text().split('[')[1].split(']')[0];
+	await db.collection('url_page').where({_id: '1e7c918c-998d-43d7-8cc0-1b58da048c24'}).update({data: {currentPage: parseInt(currentPage)}});
+
+	const imagesLink = $('.view_img_link');
+	imagesLink.attr('href', function (index, value) {
+		value && imagesArray.push(`https:${value}`);
+	});
+	let len = imagesArray.length;
+	for (let i = 0; i < len; i++) {
+		const img = imagesArray[i];
+		const res = await db.collection('photo').where({ src: img }).count();
+		console.log(res);
+		if (res && res.total > 0) {
+			console.log(`${img}已存在`);
+		} else {
+			await db.collection('photo').add({
+				data: {
+					src: img, createTime: dateFormat(new Date(new Date().getTime() + 28800 * 1000), "yyyy-MM-dd hh:mm:ss")
+				}
 			});
-	})
-		.catch(error => {
-			console.log(error);
-			ph.exit();
-		});
+		}
+	}
+}
+
+
+exports.main = async (event, context) => {
+	const db = cloud.database();
+	const res = await db.collection('url_page').get();
+	const { data = [] } = res;
+	const currentPage = data[0] ? data[0].currentPage : 0;
+	await jandan(currentPage > 1 ? `${pageUrl}/page-${currentPage - 1}` : pageUrl);
 }
