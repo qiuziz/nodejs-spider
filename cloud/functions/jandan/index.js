@@ -3,7 +3,7 @@
  * @Github: <https://github.com/qiuziz>
  * @Date: 2019-08-09 15:29:46
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-08-16 15:21:26
+ * @Last Modified time: 2019-08-17 15:23:59
  */
 
 const cloud = require('wx-server-sdk');
@@ -44,7 +44,7 @@ async function jandan(url) {
 	await db.collection('url_page')
 					.where({_id: '1e7c918c-998d-43d7-8cc0-1b58da048c24'})
 					.update({data: {
-						currentPage: currentPage > 1 parseInt(currentPage) : -1
+						currentPage: currentPage > 1 ? parseInt(currentPage) : -1
 					}});
 
 	const imagesLink = $('.view_img_link');
