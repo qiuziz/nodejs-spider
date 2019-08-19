@@ -52,10 +52,7 @@ class App extends Component {
 
   componentDidMount () {
     if (process.env.TARO_ENV === 'weapp') {
-      Taro.cloud.init({
-        env: 'qiuz-dev-sqsu6',
-        traceUser: true,
-      })
+      Taro.cloud.init();
     }
   }
 
