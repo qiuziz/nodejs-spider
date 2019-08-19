@@ -3,7 +3,7 @@
  * @Github: <https://github.com/qiuziz>
  * @Date: 2019-08-15 13:44:47
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-08-15 13:55:30
+ * @Last Modified time: 2019-08-19 10:19:26
  */
 
 import Taro, { Component, Config } from '@tarojs/taro'
@@ -20,7 +20,7 @@ export default class Index extends Component<any, any> {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: Config = {
-    navigationBarTitleText: '妹子图'
+    navigationBarTitleText: '去记录'
   }
   constructor(props: any) {
     super(props);
