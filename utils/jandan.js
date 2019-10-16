@@ -16,7 +16,7 @@ const cheerio = require("cheerio"),
     schedule = require('node-schedule'),
     scheduleRule = new schedule.RecurrenceRule();
 
-scheduleRule.dayOfWeek = [0, new schedule.Range(1, 6)];
+scheduleRule.dayOfWeek = [0];
 scheduleRule.hour = 2;
 
 scheduleRule.minute = 0;
