@@ -1,0 +1,15 @@
+version: '2'
+services:
+  photo-node:
+    build: .
+    container_name: photo-node
+    volumes:
+      - ./:/app
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - mongo_net
+networks:
+  mongo_net:
+    external: true
