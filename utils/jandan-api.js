@@ -2,7 +2,7 @@
  * @Author: qiuz
  * @Date: 2017-05-15 19:50:58
  * @Last Modified by: qiuz
- * @Last Modified time: 2019-04-01 10:04:52
+ * @Last Modified time: 2019-10-17 12:58:57
  */
 
 const express = require("express"),
@@ -14,6 +14,7 @@ let lastPageId = null;
 
 router.get("/images", (req, res) => {
   const page = req.query.page || 0;
+  console.log(page)
   if (page === 1) {
     lastPageId = null;
   }
@@ -24,12 +25,11 @@ router.get("/images", (req, res) => {
     const query = lastPageId ? {_id : { '$lt' :  lastPageId} } : {};
 		collection.find(query).limit(10).sort({_id: -1}).toArray(function(err,doc){
 			if (err) {
-				console.log(err);
-			  db.close();
+				console.log('------------',err);
         res.status(502).send('fetch error')
 				return;
       }
-      db.close();
+      console.log(lastPageId);
       lastPageId = doc[doc.length - 1] && doc[doc.length - 1]._id;
 			res.send(doc);
     })
@@ -45,7 +45,6 @@ router.post("/like", (req, res) => {
 		collection.findOne({src: params.src}, function(err,doc) {
 			if (err) {
 				console.log(err);
-			  db.close();
         res.status(502).send('fetch error')
 				return;
       }
@@ -59,7 +58,6 @@ router.post("/like", (req, res) => {
             return;
         }
       });
-      db.close();
 			res.send(doc);
     })
 	})
@@ -74,7 +72,6 @@ router.post("/unlike", (req, res) => {
 		collection.findOne({src: params.src, userId: params.userId}, function(err,doc) {
 			if (err) {
 				console.log(err);
-			  db.close();
         res.status(502).send('fetch error')
 				return;
       }
@@ -88,7 +85,6 @@ router.post("/unlike", (req, res) => {
             return;
         }
       });
-      db.close();
 			res.send(doc);
     })
 	})
@@ -111,11 +107,9 @@ router.post("/like/list", (req, res) => {
 		collection.find(query).limit(10).sort({_id: -1}).toArray(function(err,doc){
 			if (err) {
 				console.log(err);
-			  db.close();
         res.status(502).send('fetch error')
 				return;
       }
-      db.close();
       lastPageId = doc[doc.length - 1] && doc[doc.length - 1]._id;
 			res.send(doc);
     })
@@ -141,7 +135,6 @@ router.post("/login", (req, res) => {
 		collection.findOne(query, function(err, doc){
 			if (err) {
 				console.log(err);
-			  db.close();
         res.status(502).send('fetch error')
 				return;
       }
@@ -160,7 +153,6 @@ router.post("/login", (req, res) => {
             return;
         }
       });
-      db.close();
 			res.send({errorMsg: '', token, userId: doc._id, userName: doc.username, auth: doc.auth});
     })
 	})
@@ -185,7 +177,6 @@ router.post("/delete", (req, res) => {
 		collection.findOne(query, function(err, doc){
 			if (err) {
 				console.log(err);
-			  db.close();
         res.status(502).send('fetch error')
 				return;
       }
@@ -205,9 +196,7 @@ router.post("/delete", (req, res) => {
             console.log('Error:'+ err);
             return;
         }
-        db.close();
       });
-      db.close();
 			res.send({errorMsg: ''});
     })
 	})
