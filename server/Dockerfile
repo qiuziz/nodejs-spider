@@ -7,12 +7,6 @@ RUN echo "https://mirrors.aliyun.com/alpine/v3.9/main/" > /etc/apk/repositories
 
 # 维护者信息
 MAINTAINER https://github.com/qiuziz
-# RUN apk add --update \
-# 		python \
-# 		git \
-# 		make \
-# 		g++ \
-# 		&& rm -rf /var/cache/apk/* \
 
 RUN apk add -U --no-cache --allow-untrusted tzdata ca-certificates python make g++ && \
     mkdir -p /app /logs && \

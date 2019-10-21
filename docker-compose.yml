@@ -1,14 +1,12 @@
 version: '2'
 services:
-  photo-node:
-    image: photo-node
+  photo:
+    image: photo-web
     build: .
-    container_name: photo-node
-    volumes:
-      - ./:/app
+    container_name: photo
     restart: always
     ports:
-      - "8000:8000"
+      - "4200:80"
     networks:
       - share_net
 networks:
