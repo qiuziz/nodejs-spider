@@ -16,7 +16,7 @@ WORKDIR /app
 COPY . .
 
 RUN yarn && \
-    yarn build
+    node --max_old_space_size=1096 ./node_modules/@angular/cli/bin/ng build --prod
 
 FROM nginx:stable-alpine
 COPY --from=builder /app/dist/nodejs-spider-ng /usr/share/nginx/html
