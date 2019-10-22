@@ -8,18 +8,21 @@ RUN echo "https://mirrors.aliyun.com/alpine/v3.9/main/" > /etc/apk/repositories
 # 维护者信息
 MAINTAINER https://github.com/qiuziz
 
-RUN apk add -U --no-cache --allow-untrusted tzdata ca-certificates python make g++ && \
+RUN apk add -U --no-cache --allow-untrusted python make g++ && \
     mkdir -p /app /logs && \
+    yarn config set registry https://registry.npm.taobao.org && \
     yarn global add pm2 && \
     yarn cache clean && \
     rm -rf /var/cache/apk/*
 
-COPY ./startup.sh ./utc2cst.sh /usr/local/bin/
-RUN chmod +x usr/local/bin/startup.sh && \
-    chmod +x usr/local/bin/utc2cst.sh
+COPY package*.json /app
+COPY yarn.lock /app
 
 WORKDIR /app
-VOLUME ["/app"]
+
+RUN yarn install
+
+COPY . /app
 
 EXPOSE 8000
-CMD [ "startup.sh" ]
+CMD [ "pm2-runtime", "start", "pm2.config.js" ]
