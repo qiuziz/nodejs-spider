@@ -3,7 +3,7 @@
  * @Github: <https://github.com/qiuziz>
  * @Date: 2018-09-21 18:08:15
  * @Last Modified by: qiuz
- * @Last Modified time: 2018-09-22 21:04:32
+ * @Last Modified time: 2019-10-30 17:25:49
  */
 
 const rp = require("request-promise"),
@@ -11,7 +11,7 @@ const rp = require("request-promise"),
 
 function request(url, options = {}) {
   return rp({
-      uri: 'http://localhost:8081',
+      uri: 'http://106.54.223.176:9001',
       method: "POST",
       json: true,
       headers: {
